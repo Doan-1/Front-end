@@ -1,0 +1,129 @@
+.main{
+    margin-top: 60px;
+}
+.intro{
+    display: grid;
+    grid-template-columns: 40% 60%;
+    color: var(--primary-color);
+}
+.intro__wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.intro__info{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    justify-content: center;
+    padding: 0 150px;
+}
+.intro__info h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 80px;
+    margin: 0;
+}
+.intro__info span{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 16px 0 24px;
+}
+.intro__img{
+    display: flex;
+    justify-content: end;
+    position: relative;
+}
+.intro__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.intro__sub_img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    object-fit: cover;
+}
+
+.slide{
+    padding: 120px 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slide__img{
+    width: 100%;
+    height: 100%;
+    padding: 0 150px;
+}
+.slide__img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category{
+    padding: 0 150px;
+}
+.category__list{
+    display: grid;
+    grid-template-columns: 48% 4% 48%;
+}
+.category__item{
+    position: relative;
+    margin: 24px;
+}
+.category__item img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.overlayer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--primary---color-rgba3);
+    color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+}
+.overlayer h3{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 32px;
+    margin: 0;
+}
+.shop{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+}
+.shop span{
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 16px;
+    margin: 0;
+}
+.shop i{
+    font-size: 14px;
+    margin-left: 8px;
+    line-height: 14px;
+}
+

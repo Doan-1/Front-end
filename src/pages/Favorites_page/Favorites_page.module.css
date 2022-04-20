@@ -1,0 +1,26 @@
+.favorite{
+    padding: 70px 150px 0px 150px;
+}
+.favorite__wrapper h2{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    list-style: 28px;
+    color: var(--primary-color);
+    margin: 32px 0px;
+}
+.favorite__list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.favorite__list .products__item{
+    padding: 32px 22px;
+}
+.products__item + .products__item{
+    margin: 0;
+}
+.btn__favorite{
+    min-width: 250px;
+    margin-top: 24px;
+}

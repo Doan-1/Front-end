@@ -1,0 +1,144 @@
+.account{
+    width: 100%;
+    height: 679px;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('../../assets/signin.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: grid;
+    grid-template-columns: 40% 60% ;
+    margin-top: 60px;
+}
+.background{
+    width: 100%;
+    height: 100%;
+}
+.background img{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+.signin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signin.active{
+    display: none;
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-color-rgba);
+    padding: 36px;
+    border-radius: 20px;
+}
+.wrapper h2{
+    font-size: 32px;
+    color: var(--primary-color);
+}
+.wrapper .input .input_item{
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 24px 0;
+    position: relative;
+}
+.wrapper input{
+    width: 100%;
+    padding: 16px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0);
+    color: var(--text-color);
+} 
+
+.wrapper .input i{
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(calc(-50%));
+    font-size: 16px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.wrapper .input_item_icon_open{
+    display: block;
+}
+.wrapper .input_item_icon_open.active{
+    display: none;
+}
+.wrapper .input_item_icon_close{
+    display: none;
+}
+.wrapper .input_item_icon_close.active{
+    display: block;
+}
+.wrapper p{
+    font-size: 18px;
+    color: var(--text-color);
+    text-align: center;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 0;
+}
+.wrapper .forgot_password{
+    text-align: right;
+}
+.wrapper .text{
+    text-align: center;
+    margin: 24px 0;
+}
+.wrapper a{
+    color: var(--primary-color);
+    font-size: 19px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.wrapper .btn_signin{
+    margin: 16px 0;
+}
+.signup_method{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.signup_method_item{
+    background-color: var(--white-color);
+    border-radius: 10px;
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    min-width: 280px;
+    box-shadow: 0 0 7px var(--primary---color-rgba2);
+    cursor: pointer;
+}
+.signup_method_item + .signup_method_item{
+    margin-left: 16px;
+}
+.signup_method_item i{
+    font-size: 25px;
+}
+.signup_method_item span{
+    margin-left: 16px;
+    font-size: 18px;
+}
+.signup{
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.signup.active{
+    display: flex;
+}
+.input_addition{
+    border: none;
+    display: grid;
+    grid-template-columns: 48% 4% 48%;
+}
