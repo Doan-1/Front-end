@@ -18,7 +18,8 @@
     height: 100%;
     object-fit: fill;
 }
-.signin{
+.signin,
+.signup{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,17 +123,14 @@
 .signup_method_item + .signup_method_item{
     margin-left: 16px;
 }
-.signup_method_item i{
-    font-size: 25px;
+.signup_method_item img{
+    width: 24px;
+    height: 24px;
+    object-fit: fill;
 }
 .signup_method_item span{
     margin-left: 16px;
     font-size: 18px;
-}
-.signup{
-    display: none;
-    align-items: center;
-    justify-content: center;
 }
 .signup.active{
     display: flex;

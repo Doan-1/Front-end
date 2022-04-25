@@ -49,8 +49,9 @@
     margin-right: 24px;
 }
 .contact__icon{
+    width: 50px;
+    height: 50px;
     background-color: var(--white-color);
-    padding: 12px;
     border-radius: 50%;
     display: flex;
     align-items: center;

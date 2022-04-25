@@ -1,6 +1,16 @@
 import { useState } from "react";
 import style from './Footer.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+// import {
+//     faFacebook,
+//     faTwitter,
+//     faInstargram
+//   } from '@fortawesome/free-brands-svg-icons';
+import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram} from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const Footer = () => {
     return (
@@ -77,17 +87,17 @@ const Footer = () => {
                 <div class={style.contact}>
                     <a href="" class={style.contact__link}>
                         <div class={style.contact__icon}>
-                            <i class="fa-brands fa-facebook-f"></i>
+                            <FontAwesomeIcon icon={faFacebookF} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
                     <a href="" class={style.contact__link}>
                         <div class={style.contact__icon}>
-                            <i class="fa-brands fa-twitter"></i>
+                            <FontAwesomeIcon icon={faTwitter} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
                     <a href="" class={style.contact__link}>
                         <div class={style.contact__icon}>
-                            <i class="fa-brands fa-instagram"></i>
+                            <FontAwesomeIcon icon={faInstagram} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
                 </div>

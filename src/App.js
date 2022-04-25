@@ -67,7 +67,7 @@ function App() {
   return (
     <>
       <Header />
-      <Orders />
+      <Home />
       <Footer />
     </>
     // <div style={{padding: 100}}>

@@ -7,6 +7,9 @@ import slide_img from '../../assets/slide-img.jpg'
 import women_img from '../../assets/women.jpg'
 import man_img from '../../assets/man.jpg'
 
+import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const Home = () => {
     const [products, setProducts] = useState([
         {
@@ -91,7 +94,7 @@ const Home = () => {
                                 <h3>WOMEN</h3>
                                 <div className={style.shop}>
                                     <span>Shop now</span>
-                                    <i className="fa-solid fa-arrow-right-long"></i>
+                                    <FontAwesomeIcon icon={faArrowRightLong} style={{fontSize: '16px', marginLeft: '8px', position : 'relative', top: '1px'}}/>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +105,7 @@ const Home = () => {
                                 <h3>MAN</h3>
                                 <div className={style.shop}>
                                     <span>Shop now</span>
-                                    <i className="fa-solid fa-arrow-right-long"></i>
+                                    <FontAwesomeIcon icon={faArrowRightLong} style={{fontSize: '16px', marginLeft: '8px', top: '-4px'}}/>
                                 </div>
                             </div>
                         </div>
