@@ -19,6 +19,25 @@ export default class API {
         })
         return a;
     }
+    async getComment() {
+        let a = await axios.get(`http://localhost:4001/comment`)
+        return a.data;
+    }
+    async getOrderbyIDuser(id) {
+        let a = await axios.get(`http://localhost:4001/order/`+ id)
+        return a.data;
+    }
+    async createNewOrder(iduser,idproduct,productname,price,img,quantity) {
+        let a = await axios.post(`http://localhost:4001/order/create`,{
+            id_user: iduser,
+            id_product: idproduct,
+            product_name: productname,
+            product_price: price,
+            product_img: img,
+            quantity: quantity
+        })
+        return a.data;
+    }
     // async getChartHome() {
     //     let a = await axios.get(`${global.config.API}/chart-home`)
     //     return a.data;
