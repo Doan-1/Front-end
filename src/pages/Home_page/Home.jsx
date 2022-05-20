@@ -1,16 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from './Home_page.module.css'
-
+import API from '../../context/Api.context';
 import intro_img from '../../assets/intro-img.jpg'
 import intro_sub_img from '../../assets/intro-sub-img.png'
 import slide_img from '../../assets/slide-img.jpg'
 import women_img from '../../assets/women.jpg'
 import man_img from '../../assets/man.jpg'
 
+
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = () => {
+    
+    const api = new API();
+    const[itemsProduct, setItemsProduct] = useState([]);
+    
+    const getapi = async () => {
+        
+        await api.getProduct().then(res => {
+            console.log(res)
+        });
+        
+        //await api.createProduct('3','Nike Jordan 2','4.000.000','ahihihih','Nike-Jordan-2','null','shoes');
+
+        
+    } 
+    useEffect(async () => {
+        
+        await getapi();
+        
+    }, []);
     const [products, setProducts] = useState([
         {
             product_name: 'Product Name',
@@ -71,7 +91,7 @@ const Home = () => {
                         <div className={style.intro__info}>
                             <h2>Built your flight</h2>
                             <span>Introducing product name. Our lightest shoe, ever.</span>
-                            <button className="btn">SHOP NOW</button>
+                            <button className="btn" >SHOP NOW</button>
                         </div>
                     </div>
                     <div className={style.intro__img}>
