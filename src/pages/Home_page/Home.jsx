@@ -71,7 +71,9 @@ const Home = () => {
                         <div className={style.intro__info}>
                             <h2>Built your flight</h2>
                             <span>Introducing product name. Our lightest shoe, ever.</span>
-                            <button className="btn">SHOP NOW</button>
+                            <a href="#products">
+                                <button className="btn">SHOP NOW</button>
+                            </a>
                         </div>
                     </div>
                     <div className={style.intro__img}>
@@ -94,7 +96,7 @@ const Home = () => {
                                 <h3>WOMEN</h3>
                                 <div className={style.shop}>
                                     <span>Shop now</span>
-                                    <FontAwesomeIcon icon={faArrowRightLong} style={{fontSize: '16px', marginLeft: '8px', position : 'relative', top: '1px'}}/>
+                                    <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', position: 'relative', top: '1px' }} />
                                 </div>
                             </div>
                         </div>
@@ -105,13 +107,13 @@ const Home = () => {
                                 <h3>MAN</h3>
                                 <div className={style.shop}>
                                     <span>Shop now</span>
-                                    <FontAwesomeIcon icon={faArrowRightLong} style={{fontSize: '16px', marginLeft: '8px', top: '-4px'}}/>
+                                    <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', top: '-4px' }} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="products">
+                <div className="products" id="products">
                     <div className="products__wrapper">
                         <div className="products__category">
                             <h2>New Release</h2>

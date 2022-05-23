@@ -14,10 +14,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = () => {
     return (
-        <div class={style.footer}>
-            <div class={style.information}>
-                <div class={style.detail}>
-                    <div class={style.detail__item}>
+        <div className={style.footer}>
+            <div className={style.information}>
+                <div className={style.detail}>
+                    <div className={style.detail__item}>
                         <h2>Products</h2>
                         <ul>
                             <a href="">
@@ -46,7 +46,7 @@ const Footer = () => {
                             </a>
                         </ul>
                     </div>
-                    <div class={style.detail__item}>
+                    <div className={style.detail__item}>
                         <h2>Get Help</h2>
                         <ul>
                             <a href="">
@@ -66,7 +66,7 @@ const Footer = () => {
                             </a>
                         </ul>
                     </div>
-                    <div class={style.detail__item}>
+                    <div className={style.detail__item}>
                         <h2>About Us</h2>
                         <ul>
                             <a href="">
@@ -84,25 +84,25 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                <div class={style.contact}>
-                    <a href="" class={style.contact__link}>
-                        <div class={style.contact__icon}>
+                <div className={style.contact}>
+                    <a href="" className={style.contact__link}>
+                        <div className={style.contact__icon}>
                             <FontAwesomeIcon icon={faFacebookF} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
-                    <a href="" class={style.contact__link}>
-                        <div class={style.contact__icon}>
+                    <a href="" className={style.contact__link}>
+                        <div className={style.contact__icon}>
                             <FontAwesomeIcon icon={faTwitter} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
-                    <a href="" class={style.contact__link}>
-                        <div class={style.contact__icon}>
+                    <a href="" className={style.contact__link}>
+                        <div className={style.contact__icon}>
                             <FontAwesomeIcon icon={faInstagram} style={{fontSize: '22px'}}/>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class={style.tag}>
+            <div className={style.tag}>
                 <span>© 2022 Nike, Inc. All Rights Reserved</span>
             </div>
         </div>

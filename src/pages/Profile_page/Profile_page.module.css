@@ -8,7 +8,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 600;
-    list-style: 28px;
+    line-height: 28px;
     color: var(--primary-color);
     margin: 32px 0px;
 }

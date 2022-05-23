@@ -208,7 +208,13 @@
     cursor: default;
     box-shadow: 0 -5px 5px rgba(70, 130, 180, 0.08);
 }
-
+.empty__cart{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 .account__func_item_info{
     position: absolute;
     top: 100%;
