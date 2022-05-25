@@ -6,15 +6,20 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/product`)
         return a.data;
     }
-    async createProduct(id,name,price,description,slug,img,category ) {
+    async createProduct(id,name,price,description,slug,category,col,sty,detail,disc,disc_percent,thumb ) {
         let a = await axios.post(`http://localhost:4001/product/create`,{
             id_product : id,
-            product_name : name,
+            product_name: name,
             product_price: price,
             description: description,
             slug: slug,
-            product_img:img,
-            categories: category
+            categories: category,
+            color: col,
+            style: sty,
+            detail_info: detail,
+            discount: disc,
+            discount_percent: disc_percent,
+            thumbnail: thumb
 
         })
         return a;
@@ -27,16 +32,26 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/order/`+ id)
         return a.data;
     }
-    async createNewOrder(iduser,idproduct,productname,price,img,quantity) {
+    async createNewOrder(iduser,idproduct,productname,price,img,col,sty,quantity,siz) {
         let a = await axios.post(`http://localhost:4001/order/create`,{
             id_user: iduser,
             id_product: idproduct,
             product_name: productname,
             product_price: price,
-            product_img: img,
-            quantity: quantity
+            thumbnail:img,
+            color: col,
+            style: sty,
+            quantity: quantity,
+            size: siz
         })
-        return a.data;
+        return a;
+    }
+    async deleteOneInOrder(iduser,idproduct){
+        let a = await axios.post(`http://localhost:4001/order/deleteOne`,{
+            id_user:iduser,
+            id_product: idproduct
+        })
+        return a;
     }
     // async getChartHome() {
     //     let a = await axios.get(`${global.config.API}/chart-home`)
