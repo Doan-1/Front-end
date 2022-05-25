@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from './ProductInfo_page.module.css'
+import style from '../css/ProductInfo_page.module.css'
 
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";

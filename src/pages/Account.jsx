@@ -1,10 +1,10 @@
 import { prettyDOM } from "@testing-library/react";
 import { useState } from "react";
-import style from './Account_page.module.css'
+import style from '../css/Account_page.module.css'
 
 
-import facebook_logo from '../../assets/facebook.png'
-import google_logo from '../../assets/google.png'
+import facebook_logo from '../assets/facebook.png'
+import google_logo from '../assets/google.png'
 
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";

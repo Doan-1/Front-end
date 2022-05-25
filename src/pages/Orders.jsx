@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from './Orders_page.module.css'
+import style from '../css/Orders_page.module.css'
 
 const Orders = () => {
     return (

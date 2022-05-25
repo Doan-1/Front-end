@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import style from './Bag_page.module.css'
+import style from '../css/Bag_page.module.css'
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";

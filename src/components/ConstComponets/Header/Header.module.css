@@ -2,9 +2,10 @@
 .header{
     width: 100%;
     height: 60px;
-    display: grid;
+    display: flex;
+    flex-direction: row;
     /* align-items: center; */
-    grid-template-columns: 10% 45% 45%;
+    /* grid-template-columns: 10% 45% 45%; */
     color: #4682B4;
     background-color: var(--white-color);
     box-shadow: 0 4px 10px rgba(70, 130, 180, 0.07);
@@ -15,14 +16,16 @@
     z-index: 1;
 }
 .logo{
-    width: 100%;
-    height: 100%;
+    /* width: 100%;
+    height: 100%; */
+    flex: 1;
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
 }
 .menu{
+    flex: 4;
     padding: 0 24px;
     font-family: 'Montserrat', sans-serif;
     font-size: 16px;
@@ -51,6 +54,7 @@
     color: #4682B4;     
 }
 .feature{
+    flex: 5;
     display: grid;
     grid-template-columns: 50% 50%;
     padding: 0 24px;
@@ -60,7 +64,7 @@
     grid-template-columns: 10% 90%;
     align-items: center;
     justify-content: center;
-    margin: 8px 24px;
+    margin: 10px 24px;
     background-color: var(--primary---color-rgba);
     border-radius: 30px;
 }
@@ -241,10 +245,10 @@
 .account__func_item_info li:first-child a{
     margin-left: 0;
 }
-.account__func_item_info li a{
+.account__func_item_info li span{
     margin-left: 16px;
 }
-.account__func_item_info li:hover a{
+.account__func_item_info li:hover span{
     color: var(--text-color);
 }
 .account__func_item_info li:nth-child(1){
@@ -272,7 +276,7 @@
     font-size: 12px;
     margin-right: 16px;
 }
-.account__func_item_info a{
+.account__func_item_info span{
     text-decoration: none;
     font-family: 'Poppins', sans-serif;
     font-weight: 300;

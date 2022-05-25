@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from './Favorites_page.module.css'
+import style from '../css/Favorites_page.module.css'
 
 const Favorites = () => {
     const [products, setProducts] = useState([

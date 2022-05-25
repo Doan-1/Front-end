@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from './Products_page.module.css'
+import style from '../css/Products_page.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Products = () => {

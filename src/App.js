@@ -5,14 +5,14 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import Header from '../src/components/ConstComponets/Header'
 import Footer from '../src/components/ConstComponets/Footer'
-import Home from './pages/Home_page/Home'
-import Account from './pages/Account_page/Account'
-import ProductInfo from './pages/ProductInfo_page/ProductInfo'
-import Products from './pages/Products_page/Products'
-import Bag from './pages/Bag_page/Bag'
-import Favorites from './pages/Favorites_page/Favorites'
-import Profile from './pages/Profile_page/Profile'
-import Orders from './pages/Orders_page/Orders'
+import Home from './pages/Home'
+import Account from './pages/Account'
+import ProductInfo from './pages/ProductInfo'
+import Products from './pages/Products'
+import Bag from './pages/Bag'
+import Favorites from './pages/Favorites'
+import Profile from './pages/Profile'
+import Orders from './pages/Orders'
 
 const configComponent = (component) => {
   return (

@@ -1,88 +1,47 @@
 import { useEffect, useState } from "react";
-import style from './Home_page.module.css'
-import API from '../../context/Api.context';
-import intro_img from '../../assets/intro-img.jpg'
-import intro_sub_img from '../../assets/intro-sub-img.png'
-import slide_img from '../../assets/slide-img.jpg'
-import women_img from '../../assets/women.jpg'
-import man_img from '../../assets/man.jpg'
+import { Link } from "react-router-dom";
+import style from '../css/Home_page.module.css'
+import API from '../context/Api.context';
+import intro_img from '../assets/intro-img.jpg'
+import intro_sub_img from '../assets/intro-sub-img.png'
+import slide_img from '../assets/slide-img.jpg'
+import women_img from '../assets/women.jpg'
+import man_img from '../assets/man.jpg'
 
 
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = () => {
-    
-    const api = new API();
-    const[itemsProduct, setItemsProduct] = useState([]);
-    
-    const getapi = async () => {
-        
-        await api.getProduct().then(res => {
-            console.log(res)
-        });
-        
-        //await api.createProduct('3','Nike Jordan 2','4.000.000','ahihihih','Nike-Jordan-2','null','shoes');
 
-        
-    } 
+    const api = new API();
+    const [products, setProducts] = useState([])
+    const [itemsProduct, setItemsProduct] = useState([]);
+
+    // const getapi = async () => {
+
+    //     await api.getProduct().then(res => {
+    //         setProducts(res.data)
+    //     });
+
+    //     // await api.createProduct('5','Nike Jordan 5','4.000.000','abc','Nike-Jordan-5','https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png','shoes');
+
+
+    // } 
     useEffect(async () => {
-        
-        await getapi();
-        
-    }, []);
-    const [products, setProducts] = useState([
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-    ])
+        await api.getProduct().then((data) => {
+            setProducts(data.data)
+            console.log(data.data[18].discount_percent)
+        })
+        // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
+    }, [])
+    // useEffect(async () => {
+    //     await api.getProduct().then(data => {
+    //         setProducts(data)
+    //         console.log(data)
+    //     });
+
+    // });
     return (
         <div>
             <div className={style.main}>
@@ -139,14 +98,16 @@ const Home = () => {
                             <h2>New Release</h2>
                             <div className="products__list">
                                 {
-                                    products.map((product) => {
+                                    products.map((product, index) => {
                                         return (
-                                            <div className="products__item">
+                                            <div key={index} className="products__item">
                                                 <div className="products__img">
-                                                    <img src={product.product_img} alt="" />
+                                                    <img src={product.product_img || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                 </div>
-                                                <h3>{product.product_name}</h3>
-                                                <span>${product.product_price}</span>
+                                                <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                    <h3>{product.product_name || "ProductName"}</h3>
+                                                </Link>
+                                                <span>{product.product_price || "50$"}₫</span>
                                             </div>
                                         )
                                     })
@@ -161,10 +122,12 @@ const Home = () => {
                                         return (
                                             <div className="products__item">
                                                 <div className="products__img">
-                                                    <img src={product.product_img} alt="" />
+                                                    <img src={product.product_img || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                 </div>
-                                                <h3>{product.product_name}</h3>
-                                                <span>${product.product_price}</span>
+                                                <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                    <h3>{product.product_name || "ProductName"}</h3>
+                                                </Link>
+                                                <span>{product.product_price || "50$"}₫</span>
                                             </div>
                                         )
                                     })
@@ -176,15 +139,19 @@ const Home = () => {
                             <div className="products__list">
                                 {
                                     products.map((product) => {
-                                        return (
-                                            <div className="products__item">
-                                                <div className="products__img">
-                                                    <img src={product.product_img} alt="" />
+                                        if (product.discount == true) {
+                                            return (
+                                                <div className="products__item">
+                                                    <div className="products__img">
+                                                        <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                    </div>
+                                                    <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                        <h3>{product.product_name || "ProductName"}</h3>
+                                                    </Link>
+                                                    <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "$50"}₫</span>
                                                 </div>
-                                                <h3>{product.product_name}</h3>
-                                                <span>${product.product_price}</span>
-                                            </div>
-                                        )
+                                            )
+                                        }
                                     })
                                 }
                             </div>

@@ -7,7 +7,7 @@ export default class API {
         return a.data;
     }
     async createProduct(id,name,price,description,slug,img,category ) {
-        let a = await axios.post(`http://localhost:4001/product/crete`,{
+        let a = await axios.post(`http://localhost:4001/product/create`,{
             id_product : id,
             product_name : name,
             product_price: price,
