@@ -28,8 +28,8 @@ const Home = () => {
 
 
     // } 
-    useEffect(async () => {
-        await api.getProduct().then((data) => {
+    useEffect(() => {
+        api.getProduct().then((data) => {
             setProducts(data.data)
             console.log(data.data[18].discount_percent)
         })
@@ -102,9 +102,9 @@ const Home = () => {
                                         return (
                                             <div key={index} className="products__item">
                                                 <div className="products__img">
-                                                    <img src={product.product_img || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                    <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                 </div>
-                                                <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                <Link to="/productinfo" style={{ "textDecoration": "none" }}>
                                                     <h3>{product.product_name || "ProductName"}</h3>
                                                 </Link>
                                                 <span>{product.product_price || "50$"}₫</span>
@@ -122,9 +122,9 @@ const Home = () => {
                                         return (
                                             <div className="products__item">
                                                 <div className="products__img">
-                                                    <img src={product.product_img || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                    <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                 </div>
-                                                <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                <Link to="/productinfo" style={{ "textDecoration": "none" }}>
                                                     <h3>{product.product_name || "ProductName"}</h3>
                                                 </Link>
                                                 <span>{product.product_price || "50$"}₫</span>
@@ -145,10 +145,13 @@ const Home = () => {
                                                     <div className="products__img">
                                                         <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                     </div>
-                                                    <Link to="/productinfo" style={{"textDecoration": "none"}}>
+                                                    <Link to="/productinfo" style={{ "textDecoration": "none" }}>
                                                         <h3>{product.product_name || "ProductName"}</h3>
                                                     </Link>
-                                                    <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "$50"}₫</span>
+                                                    <div style={{"display": "flex", "flexDirection": "row", "justifyContent": "space-between"}}>
+                                                        <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}₫</span>
+                                                        <span style={{"fontSize": "14px", "marginRight": "16px" ,"color": "#ec4242"}}>(-{product.discount_percent}%)</span>
+                                                    </div>
                                                 </div>
                                             )
                                         }

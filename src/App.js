@@ -61,22 +61,15 @@ let path = [
 ]
 function App() {
   return (
-    <>
-      <div className="App">
-        <Routes>
-          {
-            path.map((item, index) => {
-              return(
-                <Route path={item.path} element={item.component} key={index} />
-              )
-            })
-          }
-        </Routes>
-      </div>
-      {/* <Header />
-      <Home />
-      <Footer /> */}
-    </>
+    <Routes>
+      {
+        path.map((item, index) => {
+          return (
+            <Route path={item.path} element={item.component} key={index} />
+          )
+        })
+      }
+    </Routes>
   );
 }
 

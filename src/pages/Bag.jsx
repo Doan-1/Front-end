@@ -1,131 +1,35 @@
 import { useState, useEffect } from "react";
+import API from '../context/Api.context';
 import style from '../css/Bag_page.module.css'
 import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
+const api = new API();
 const Bag = () => {
-    const [showBag, setShowBags] = useState(false)
+    // const [showBag, setShowBags] = useState(false)
 
-    const [bags, setBags] = useState([
-        {
-            product_name: 'Product Name1',
-            product_type: 'Women \'s Shoes',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png',
-            color: 'Black/Gym Red/White',
-            style: 'DD9338-016',
-            size: 250,
-            quantity: 1
-        },
-        {
-            product_name: 'Product Name2',
-            product_type: 'Women \'s Shoes',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png',
-            color: 'Black/Gym Red/White',
-            style: 'DD9338-016',
-            size: 250,
-            quantity: 1
-        },
-        {
-            product_name: 'Product Name3',
-            product_type: 'Women \'s Shoes',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png',
-            color: 'Black/Gym Red/White',
-            style: 'DD9338-016',
-            size: 250,
-            quantity: 1
-        },
-        {
-            product_name: 'Product Name1',
-            product_type: 'Women \'s Shoes',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png',
-            color: 'Black/Gym Red/White',
-            style: 'DD9338-016',
-            size: 250,
-            quantity: 1
-        },
-        {
-            product_name: 'Product Name1',
-            product_type: 'Women \'s Shoes',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png',
-            color: 'Black/Gym Red/White',
-            style: 'DD9338-016',
-            size: 250,
-            quantity: 1
-        },
-    ]
-    )
-    const [products, setProducts] = useState([
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-        {
-            product_name: 'Product Name',
-            product_price: 100,
-            product_img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'
-        },
-    ])
+    const [bags, setBags] = useState([])
+    const [products, setProducts] = useState([])
 
-    useEffect(() => {
-        if(bags.length > 0 ){
-            setShowBags(!showBag)
-        }
-    },[])
+    useEffect( () => {
+        api.getOrderbyIDuser('1').then((data) => {
+            setBags(data.data[0].orders)
+            console.log(data.data[0].orders)
+        })
+        // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
+        // if (bags.length > 0) {
+        //     setShowBags(!showBag)
+        // }
+    }, [])
+    
 
     return (
         <div>
             <div className={style.bag}>
                 {
-                    showBag &&
+                    (bags.length > 0) &&
                     <div className={style.bag__active}>
                         <div className={style.bag__wrapper}>
                             <div className={style.product__list}>
@@ -135,7 +39,7 @@ const Bag = () => {
                                         return (
                                             <div key={index} className={style.product__item} >
                                                 <div className={style.product__img}>
-                                                    <img src={bag.product_img} alt="" />
+                                                    <img src={bag.thumbnail} alt="" />
                                                 </div>
                                                 <div></div>
                                                 <div className={style.product__info_detail}>
@@ -155,8 +59,12 @@ const Bag = () => {
                                                         <span>Quantity:</span>
                                                         <span className="quantity__number">{bag.quantity}</span>
                                                         <div style={{ marginLeft: '8px' }}>
-                                                            <FontAwesomeIcon icon={faAngleUp} style={{ cursor: 'pointer' }} />
-                                                            <FontAwesomeIcon icon={faAngleDown} style={{ cursor: 'pointer' }} />
+                                                            <FontAwesomeIcon icon={faAngleUp} style={{ cursor: 'pointer' }}
+                                                               
+                                                            />
+                                                            <FontAwesomeIcon icon={faAngleDown} style={{ cursor: 'pointer' }}
+                                                                
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,7 +107,7 @@ const Bag = () => {
 
                 }
                 {
-                    !showBag &&
+                    (bags.length <= 0) &&
                     <div className={style.bag__empty}>
                         <div className={style.bag__wrapper}>
                             <div className={style.product__list}>
