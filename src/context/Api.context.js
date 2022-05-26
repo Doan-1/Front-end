@@ -53,6 +53,16 @@ export default class API {
         })
         return a;
     }
+    async createNewCart(iduser, tot, add, phon)
+    {
+        let a = await axios.post(`http://localhost:4001/cart/create`,{
+            id_user: iduser,
+            total: tot,
+            address: add,
+            phone: phon
+        })
+        return a;
+    }
     // async getChartHome() {
     //     let a = await axios.get(`${global.config.API}/chart-home`)
     //     return a.data;
