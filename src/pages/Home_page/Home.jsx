@@ -8,7 +8,7 @@ import women_img from '../../assets/women.jpg'
 import man_img from '../../assets/man.jpg'
 
 
-import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightLong, faRodAsclepius } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = () => {
@@ -18,18 +18,20 @@ const Home = () => {
     
     const getapi = async () => {
         
-        await api.getProduct().then(res => {
-            console.log(res)
-        });
-        await api.getOrderbyIDuser('1').then(res => {
-            console.log(res)
-        })
+        // await api.getProduct().then(res => {
+        //     console.log(res)
+        // });
+        // await api.getOrderbyIDuser('1').then(res => {
+        //     console.log(res)
+        // });
         ////Tao product moi (id,name,price,description,slug,category,col,sty,detail,disc,disc_percent,thumb)
         //await api.createProduct('4','Nike Jordan 3','5.000.000','ahihihih','Nike-Jordan-3','null','shoes');
         ////createNewOrder(iduser,idproduct,productname,price,thumbnail,color,style,quantity,size)
         //await api.createNewOrder('1','2','name','price','thumbnail','color','style','3','size')
         ////delete 1 product khoi order ('id_user','id_product')
         //await api.deleteOneInOrder('1','2')
+        //// them 1 cart moi(iduser, tot, add, phon)
+        //await api.createNewCart('1','3.000.000','so 4 duong 31C an phu quan 2','0834644336');
 
         
     } 
