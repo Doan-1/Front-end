@@ -16,7 +16,7 @@ import Orders from './pages/Orders'
 
 const configComponent = (component) => {
   return (
-    <div>
+    <div style={{"position": "relative"}}>
       <Header />
       <div>
         {component}
@@ -35,11 +35,11 @@ let path = [
     component: configComponent(<Account />)
   },
   {
-    path: '/productinfo',
+    path: '/productinfo/:slug',
     component: configComponent(<ProductInfo />)
   },
   {
-    path: '/products',
+    path: '/product/category/:category',
     component: configComponent(<Products />)
   },
   {

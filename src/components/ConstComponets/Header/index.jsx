@@ -18,23 +18,29 @@ import emptyCart from '../../../assets/emptycart.png'
 
 const api = new API();
 const Header = () => {
-    const [products, setProducts] = useState([{}])
-    const [showBags, setShowBags] = useState(false)
-
-
-    useEffect(() => {
-        if (products.length > 0) {
-            setShowBags(!showBags)
-        }
-    }, [])
-
+    const [products, setProducts] = useState([])
+    const [categories, setCategories] = useState([
+        'New Arrivals',
+        'Women',
+        'Man',
+        'Kids',
+        'Sales'
+    ])
     useEffect(() => {
         api.getOrderbyIDuser('1').then((data) => {
             setProducts(data.data[0].orders)
-            console.log(data.data[0].orders)
+            // console.log(data.data[0].orders)
         })
         // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
-    }, [])
+        // if (bags.length > 0) {
+        //     setShowBags(!showBag)
+        // }
+    }, [window.location.href])
+
+    const handleDelete = (id) => {
+        console.log(id)
+        // api.deleteOneInOrder("1",id)
+    }
     return (
         <div className={style.header}>
             <div className={style.logo}>
@@ -44,41 +50,54 @@ const Header = () => {
             </div>
             <nav className={style.menu}>
                 <ul className={style.menu__list}>
-                    <a href="" className={style.menu__item}>
+                    {
+                        categories.map((category, index) => {
+                            return (
+                                // <a href="" className={style.menu__item} key={index}>
+                                    <li className={style.menu__item} key={index}>
+                                        <Link to={"/product/category/" + category}>
+                                            {category}
+                                        </Link>
+                                    </li>
+                                // </a>
+                            )
+                        })
+                    }
+                    {/* <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/products">
+                            <Link to="/product/">
                                 New Arrivals
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/products">
+                            <Link to="/product/">
                                 Man
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/products">
+                            <Link to="/product/">
                                 Women
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/products">
+                            <Link to="/product/">
                                 Kids
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/products">
+                            <Link to="/product/">
                                 Sales
                             </Link>
                         </li>
-                    </a>
+                    </a> */}
                 </ul>
             </nav>
             <div className={style.feature}>
@@ -97,47 +116,73 @@ const Header = () => {
                             <Link to={'/bag'} style={{ "color": "#4682B4" }} >
                                 <FontAwesomeIcon icon={faBagShopping} />
                             </Link>
-                            <div className={style.cart}>
-                                <div className={style.cart__header}>
-                                    <h4>Your Bag</h4>
-                                    <i className="fa-solid fa-arrow-right-long"></i>
-                                </div>
-                                <ul className={style.cart__list}>
-                                    {
-                                        showBags &&
-                                        products.map((product) => {
-                                            return (
-                                                <li className={style.cart__item}>
-                                                    <div className={style.cart__item_img}>
-                                                        <img src={product.thumbnail} alt="" />
-                                                    </div>
-                                                    <div className={style.cart__item_info}>
-                                                        <h3>{product.product_name}</h3>
-                                                        <span>${product.product_price}</span>
-                                                        <span>Size: {product.size}</span>
-                                                    </div>
-                                                    <div className={style.cart__item_sub_info}>
-                                                        <FontAwesomeIcon icon={faXmark} />
-                                                        <span>{product.quantity}</span>
-                                                    </div>
-                                                </li>
-                                            )
-                                        })
-                                    }
-                                    {
-                                        !showBags &&
+                            {
+                                (products.length > 0) &&
+                                (
+                                    <div className={style.cart}>
+                                        <div className={style.cart__header}>
+                                            <h4>Your Bag</h4>
+                                            <i className="fa-solid fa-arrow-right-long"></i>
+                                        </div>
+                                        <ul className={style.cart__list}>
+                                            {
+                                                products.map((product, index) => {
+                                                    return (
+                                                        <li key={index} className={style.cart__item}>
+                                                            <div className={style.cart__item_img}>
+                                                                <img src={product.thumbnail} alt="" />
+                                                            </div>
+                                                            <div className={style.cart__item_info}>
+                                                                <h3>{product.product_name}</h3>
+                                                                <span>${product.product_price}</span>
+                                                                <span>Size: {product.size}</span>
+                                                            </div>
+                                                            <div className={style.cart__item_sub_info}>
+                                                                <FontAwesomeIcon icon={faXmark} style={{ "cursor": "pointer" }}
+                                                                    onClick={
+                                                                        () => {
+                                                                            api.deleteOneInOrder("1", product.id_product)
+                                                                            console.log(product.id_product)
+                                                                            window.location.reload()
+                                                                        }
+                                                                    }
+                                                                />
+                                                                <span>{product.quantity}</span>
+                                                            </div>
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
+                                        <div className={style.cart__checkout}>
+                                            <Link to={'/bag'} style={{ "color": "#4682B4" }} >
+                                                <button className="btn">CHECK OUT</button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                            {
+                                (products.length <= 0) &&
+                                (
+                                    <div className={style.cart}>
+                                        <div className={style.cart__header}>
+                                            <h4>Your Bag</h4>
+                                            <i className="fa-solid fa-arrow-right-long"></i>
+                                        </div>
                                         <div className={style.empty__cart}>
                                             <img src={emptyCart} alt="" />
                                             <h4>Your cart is empty!</h4>
                                         </div>
-                                    }
-                                </ul>
-                                <div className={style.cart__checkout}>
-                                    <Link to={'/bag'} style={{ "color": "#4682B4" }} >
-                                        <button className="btn">CHECK OUT</button>
-                                    </Link>
-                                </div>
-                            </div>
+                                        <div className={style.cart__checkout}>
+                                            <Link to={'/bag'} style={{ "color": "#4682B4" }} >
+                                                <button className="btn">CHECK OUT</button>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )
+                            }
 
                         </li>
                         <li className={style.account__func_item}>

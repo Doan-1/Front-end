@@ -32,6 +32,22 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/order/`+ id)
         return a.data;
     }
+    async getCartbyIDuser(id) {
+        let a = await axios.get(`http://localhost:4001/cart/`+ id)
+        return a.data;
+    }
+    async getCartinfobyId(id) {
+        let a = await axios.get(`http://localhost:4001/cartinfo/`+ id)
+        return a.data;
+    }
+    async getProductbySlug(id) {
+        let a = await axios.get(`http://localhost:4001/product/`+ id)
+        return a.data;
+    }
+    async getProductbyCategory(category) {
+        let a = await axios.get(`http://localhost:4001/product/category/`+ category)
+        return a.data;
+    }
     async createNewOrder(iduser,idproduct,productname,price,img,col,sty,quantity,siz) {
         let a = await axios.post(`http://localhost:4001/order/create`,{
             id_user: iduser,

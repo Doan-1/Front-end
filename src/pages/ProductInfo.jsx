@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from '../css/ProductInfo_page.module.css'
-
+import { useParams } from "react-router-dom";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import API from "../context/Api.context";
 
 const ProductInfo = () => {
+    const api = new API();
+    const param = useParams();
+    const [product, setProduct] = useState({})
     const [products, setProducts] = useState([
         {
             product_name: 'Product Name',
@@ -62,8 +66,8 @@ const ProductInfo = () => {
         },
     ])
     const [showDetailInfo, setShowDetailInfo] = useState(true)
-    const [arrowUp, setArrowUp] = useState(false)
-    const [arrowDown, setArrowDown] = useState(true)
+    const [arrowUp, setArrowUp] = useState(true)
+    const [arrowDown, setArrowDown] = useState(false)
     const handleShow = () => {
         setArrowUp(true)
         setArrowDown(false)
@@ -73,6 +77,15 @@ const ProductInfo = () => {
         setArrowUp(false)
         setArrowDown(true)
         setShowDetailInfo(false)
+    }
+    useEffect(() => {
+        api.getProductbySlug(param.slug).then(res => {
+            setProduct(res.data)
+            console.log(res.data)
+        })
+    },[window.location.href])
+    const handleAddOrder = () => {
+        api.createNewOrder("1", product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "2", "UE36")
     }
     return (
         <div>
@@ -100,20 +113,22 @@ const ProductInfo = () => {
                     </div>
                     <div></div>
                     <div class={style.product__info_detail}>
-                        <h3>Air Jordan 1 Mid SE Utility</h3>
-                        <span>Women's Shoes</span>
-                        <h4>$130</h4>
-                        <p>The sneaker you know and love is back with a fresh material play to change up the look and feel.The Air Jordan 1 Mid SE Utility is built with layers of rugged canvas in sharply contrasting black and white.A Gym Red outsole and Wings logo bring in a colour that's long been a favourite for the classic midtop shoe.</p>
+                        <h3>{product.product_name}</h3>
+                        <span>{product.classify}</span>
+                        <h4>{product.product_price}</h4>
+                        <p>{product.description}</p>
                         <div class={style.product__color}>
                             <h5>Colour Shown:</h5>
-                            <span>Black/Gym Red/White</span>
+                            <span>{product.color}</span>
                         </div>
                         <div class={style.product__syle}>
                             <h5>Style:</h5>
-                            <span>DD9338-016</span>
+                            <span>{product.style}</span>
                         </div>
                         <div class={style.product__btn}>
-                            <div class="btn">ADD TO BAG</div>
+                            <div class="btn" 
+                            onClick={handleAddOrder}
+                            >ADD TO BAG</div>
                             <div class={"btn" + " " + style.btn__fav}>
                                 FAVOTITES
                                 <FontAwesomeIcon icon={faHeart} style={{marginLeft: '8px'}} />
@@ -131,7 +146,7 @@ const ProductInfo = () => {
                                 {
                                     showDetailInfo && 
                                     <div class={style.product__view_info_contrain}>
-                                        <div class={style.product__view_info_item}>
+                                        {/* <div class={style.product__view_info_item}>
                                             <h5>CANVAS CLASSIC.</h5>
                                             <p>The sneaker you know and love is back with a fresh material play to change up the look and feel.The Air Jordan 1 Mid SE Utility is built with layers of rugged canvas in sharply contrasting black and white.A Gym Red outsole and Wings logo bring in a colour that's long been a favourite for the classic midtop shoe.</p>
                                         </div>
@@ -151,7 +166,8 @@ const ProductInfo = () => {
                                                 Colour Shown: Black/Gym Red/White <br />
                                                 Style: DD9338-016 <br />
                                                 Country/Region of Origin: Vietnam</p>
-                                        </div>
+                                        </div> */}
+                                        <p>{product.detail_info}</p>
                                     </div>
                                 }
                             </div>

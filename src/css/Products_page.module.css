@@ -3,7 +3,7 @@
 }
 .products__wrapper{
     display: grid;
-    grid-template-columns: 25% 75%;
+    grid-template-columns: 20% 80%;
 }
 .products__left{
     /* position: fixed; */
@@ -51,7 +51,7 @@
     overflow: hidden;
 }
 .products__list .products__item{
-    padding: 32px 22px;
+    padding: 32px 12px;
 }
 .products__item + .products__item{
     margin: 0;
