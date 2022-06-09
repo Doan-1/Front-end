@@ -48,6 +48,17 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/product/category/`+ category)
         return a.data;
     }
+    async getUserbyIDuser(id){
+        let a = await axios.get(`http://localhost:4001/user/` + id)
+        return a.data;
+    }
+    async updatefavorProduct(iduser, idproduct){
+        let a = await axios.post(`http://localhost:4001/user/favorite`,{
+            id_user: iduser,
+            id_product: idproduct
+        })
+        return a;
+    }
     async createNewOrder(iduser,idproduct,productname,price,img,col,sty,quantity,siz) {
         let a = await axios.post(`http://localhost:4001/order/create`,{
             id_user: iduser,

@@ -21,8 +21,9 @@
     flex-direction: column;
 }
 .product__item{
+    width: 100%;
     display: grid;
-    grid-template-columns: 40% 4% 54% 2%;
+    grid-template-columns: 40% 4% 56%;
     padding-bottom: 16px;
     border-bottom: 1px solid var(--primary-color);
 }
@@ -65,13 +66,13 @@
     font-weight: 600;
     margin: 16px 0;
 }
-.product__syle,
+.product__style,
 .product__color{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
-.product__syle h5,
+.product__style h5,
 .product__color h5{
     font-size: 14px;
     font-weight: 500;
@@ -83,7 +84,7 @@
     font-size: 14px;
     font-weight: 300;
 }
-.product__syle span,
+.product__style span,
 .product__color span{
     font-weight: 300;
 }

@@ -11,6 +11,7 @@ import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ItemHeaderBag from "../ItemHeaderBag";
 
 
 import logo from '../../../assets/logo.jpg'
@@ -39,6 +40,7 @@ const Header = () => {
 
     const handleDelete = (id) => {
         console.log(id)
+        api.deleteOneInOrder("1", id)
         // api.deleteOneInOrder("1",id)
     }
     return (
@@ -50,7 +52,7 @@ const Header = () => {
             </div>
             <nav className={style.menu}>
                 <ul className={style.menu__list}>
-                    {
+                    {/* {
                         categories.map((category, index) => {
                             return (
                                 // <a href="" className={style.menu__item} key={index}>
@@ -62,42 +64,42 @@ const Header = () => {
                                 // </a>
                             )
                         })
-                    }
-                    {/* <a href="" className={style.menu__item}>
+                    } */}
+                    <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/product/">
+                            <Link to="/product/category/New-Arrivals">
                                 New Arrivals
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/product/">
+                            <Link to="/product/category/Man">
                                 Man
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/product/">
+                            <Link to="/product/category/Women">
                                 Women
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/product/">
+                            <Link to="/product/category/Kids">
                                 Kids
                             </Link>
                         </li>
                     </a>
                     <a href="" className={style.menu__item}>
                         <li>
-                            <Link to="/product/">
+                            <Link to="/product/category/Sales">
                                 Sales
                             </Link>
                         </li>
-                    </a> */}
+                    </a>
                 </ul>
             </nav>
             <div className={style.feature}>
@@ -128,28 +130,23 @@ const Header = () => {
                                             {
                                                 products.map((product, index) => {
                                                     return (
-                                                        <li key={index} className={style.cart__item}>
-                                                            <div className={style.cart__item_img}>
-                                                                <img src={product.thumbnail} alt="" />
-                                                            </div>
-                                                            <div className={style.cart__item_info}>
-                                                                <h3>{product.product_name}</h3>
-                                                                <span>${product.product_price}</span>
-                                                                <span>Size: {product.size}</span>
-                                                            </div>
-                                                            <div className={style.cart__item_sub_info}>
-                                                                <FontAwesomeIcon icon={faXmark} style={{ "cursor": "pointer" }}
-                                                                    onClick={
-                                                                        () => {
-                                                                            api.deleteOneInOrder("1", product.id_product)
-                                                                            console.log(product.id_product)
-                                                                            window.location.reload()
-                                                                        }
-                                                                    }
-                                                                />
-                                                                <span>{product.quantity}</span>
-                                                            </div>
-                                                        </li>
+                                                        <ItemHeaderBag props={product} key={index} />
+                                                        // <li key={index} className={style.cart__item}>
+                                                        //     <div className={style.cart__item_img}>
+                                                        //         <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                        //     </div>
+                                                        //     <div className={style.cart__item_info}>
+                                                        //         <h3>{product.product_name}</h3>
+                                                        //         <span>${product.product_price}</span>
+                                                        //         <span>Size: {product.size}</span>
+                                                        //     </div>
+                                                        //     <div className={style.cart__item_sub_info}>
+                                                        //         <FontAwesomeIcon icon={faXmark} style={{ "cursor": "pointer" }}
+                                                        //             onClick={() => handleDelete(product.id_product)}
+                                                        //         />
+                                                        //         <span>{product.quantity}</span>
+                                                        //     </div>
+                                                        // </li>
                                                     )
                                                 })
                                             }

@@ -31,6 +31,8 @@ const Orders = () => {
             setOrderItems(res.data[0].orders)
             // console.log(res.data[0].orders)
         })
+
+        console.log(id)
     }
     return (
         <div className={style.order}>

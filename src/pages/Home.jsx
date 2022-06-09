@@ -154,7 +154,7 @@ const Home = () => {
                             <div className="products__list">
                                 {
                                     products.map((product) => {
-                                        if (product.categories == 'Sales') {
+                                        if (product.categories === `Sales`) {
                                             return (
                                                 <div className="products__item">
                                                     <div className="products__img">

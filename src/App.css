@@ -98,7 +98,7 @@ html{
 }
 
 .products__item + .products__item{
-  margin-left: 24px;
+  margin-left: 48px;
 }
 .products__img{
   width: 250px;

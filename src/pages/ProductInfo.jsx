@@ -85,7 +85,11 @@ const ProductInfo = () => {
         })
     },[window.location.href])
     const handleAddOrder = () => {
-        api.createNewOrder("1", product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "2", "UE36")
+        api.createNewOrder("1", product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", "UE36")
+    }
+    const handleAddFavor = (idproduct) => {
+        api.updatefavorProduct("1",idproduct)
+        console.log(idproduct)
     }
     return (
         <div>
@@ -129,7 +133,9 @@ const ProductInfo = () => {
                             <div class="btn" 
                             onClick={handleAddOrder}
                             >ADD TO BAG</div>
-                            <div class={"btn" + " " + style.btn__fav}>
+                            <div class={"btn" + " " + style.btn__fav}
+                             onClick={() => handleAddFavor(product.id_product)}
+                            >
                                 FAVOTITES
                                 <FontAwesomeIcon icon={faHeart} style={{marginLeft: '8px'}} />
                             </div>
