@@ -84,7 +84,7 @@ const Orders = () => {
                                             return (
                                                 <div key={index} className={style.product__item} >
                                                     <div className={style.product__img}>
-                                                        <img src={orderItem.thumbnail} alt="" />
+                                                        <img src={orderItem.thumbnail  || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                     </div>
                                                     <div></div>
                                                     <div className={style.product__info_detail}>

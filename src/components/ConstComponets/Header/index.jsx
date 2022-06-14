@@ -38,10 +38,16 @@ const Header = () => {
         // }
     }, [window.location.href])
 
-    const handleDelete = (id) => {
-        console.log(id)
+    const handleDelete = (id, stt) => {
+        // console.log(id)
+        let newArr = products.filter((item, i) => i !== stt)
+        setProducts(newArr)
         api.deleteOneInOrder("1", id)
-        // api.deleteOneInOrder("1",id)
+        // document.querySelectorAll(".item")[stt].style.display = 'none';
+        // let a = bags;
+        // a.splice(stt,1)
+        // let arr = a;
+        // setBags(arr);
     }
     return (
         <div className={style.header}>
@@ -130,7 +136,14 @@ const Header = () => {
                                             {
                                                 products.map((product, index) => {
                                                     return (
-                                                        <ItemHeaderBag props={product} key={index} />
+                                                        <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
+                                                            <ItemHeaderBag props={product} key={index} />
+                                                            <div className={style.cart__item_sub_info}>
+                                                                <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
+                                                                    onClick={() => handleDelete(product.id_product, index)}
+                                                                />
+                                                            </div>
+                                                        </div>
                                                         // <li key={index} className={style.cart__item}>
                                                         //     <div className={style.cart__item_img}>
                                                         //         <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />

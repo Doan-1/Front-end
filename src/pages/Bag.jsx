@@ -10,8 +10,9 @@ import ItemBag from "../components/ConstComponets/ItemBag";
 
 const api = new API();
 const Bag = () => {
-    // const [state, setState] = useState([1, 2, 3])
 
+    
+    // console.log('re-render');
     const [bags, setBags] = useState([])
     // const [products, setProducts] = useState([])
     const [number, setNumber] = useState(0)
@@ -24,13 +25,13 @@ const Bag = () => {
     useEffect(() => {
         api.getOrderbyIDuser('1').then((data) => {
             setBags(data.data[0].orders)
-            let a = 0;
-            data.data[0].orders.map(item => {
-                a += parseInt(item.product_price) * parseInt(item.quantity)
-            })
+            // let a = 0;
+            // data.data[0].orders.map(item => {
+            //     a += parseInt(item.product_price) * parseInt(item.quantity)
+            // })
 
-            setNumber(a)
-            setTotal(a + delivery)
+            // setNumber(a)
+            // setTotal(a + delivery)
             // console.log(data.data[0].orders)
         })
 
@@ -48,25 +49,13 @@ const Bag = () => {
         })
     }, [window.location.href])
 
-    const handleDelete = (id, stt) => {
-        // api.deleteOneInOrder("1", id)
-        const itemDeletes = document.querySelectorAll('.item')
-        console.log(itemDeletes)
-        itemDeletes.forEach((item, index) => {
-            if(index === stt){
-                item.style.display = 'none';
-                bags.splice(index, 1)
-                const newArray = bags
-                setBags(newArray)
-                api.deleteOneInOrder("1", id)
-            }
-            
+    useEffect(() => {
+        api.getTotalbyIDuser('1').then(res => {
+            // console.log(res.data);
+            setNumber(res.data)
+            setTotal(res.data + delivery)
         })
-        console.log(bags.length)
-        if(bags.length === 0){
-            setBags([])
-        }
-    }
+    },[])
 
     const handleAddNewCart = () => {
         api.createNewCart("1", total, address, phone);
@@ -74,156 +63,122 @@ const Bag = () => {
         setNumber(0)
         setTotal(0)
     }
-
+    const handleDelete = (id, stt, price, quantities) => {
+        let newArr = bags.filter((item, i) => i !== stt)
+        setBags(newArr)
+        setNumber(total => total - Number(price)*Number(quantities))
+        setTotal(total => total - Number(price)*Number(quantities))
+        api.deleteOneInOrder("1", id)
+    }
     return (
         <div>
-
             <div className={style.bag}>
                 {
-                    (bags.length > 0) &&
-                    (
-
-                        <div className={style.bag__active}>
-                            <div className={style.bag__wrapper}>
-                                <div className={style.product__list}>
-                                    <h2>Your Bag</h2>
-                                    {
-                                        bags.map((bag, index) => {
-                                            return (
-                                                <div className="item" style={{display: 'flex', flexDirection: 'row', marginBottom: '16px'}}>
-                                                    <ItemBag props={bag} key={index}/>
-                                                    <div className={style.cart__item_sub_info}>
-                                                        <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                                            onClick={() => handleDelete(bag.id_product, index)}
-                                                        />
+                    bags.length > 0 ?
+                        (
+                            <div className={style.bag__active}>
+                                <div className={style.bag__wrapper}>
+                                    <div className={style.product__list}>
+                                        <h2>Your Bag</h2>
+                                        {
+                                            bags.map((bag, index) => {
+                                                return (
+                                                    <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
+                                                        <ItemBag props={{bag, setNumber, number, total, setTotal}} key={index} />
+                                                        <div className={style.cart__item_sub_info}>
+                                                            <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
+                                                                onClick={() => handleDelete(bag.id_product, index, bag.product_price, bag.quantity)}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                // <div key={index} className={style.product__item} >
-                                                //     <div className={style.product__img}>
-                                                //         <img src={bag.thumbnail} alt="" />
-                                                //     </div>
-                                                //     <div></div>
-                                                //     <div className={style.product__info_detail}>
-                                                //         <h3>{bag.product_name}</h3>
-                                                //         <span>{bag.product_type}</span>
-                                                //         <h4>${bag.product_price}</h4>
-                                                //         <div className={style.product__color}>
-                                                //             <h5>Colour Shown:</h5>
-                                                //             <span>{bag.color}</span>
-                                                //         </div>
-                                                //         <div className={style.product__syle}>
-                                                //             <h5>Style:</h5>
-                                                //             <span>{bag.style}</span>
-                                                //         </div>
-                                                //         <span className={style.product__size}>Size: {bag.size}</span>
-                                                //         <div className={style.quantity}>
-                                                //             <span>Quantity:</span>
-                                                //             <span className={style.quantity__number}>{bag.quantity}</span>
-                                                //             <div style={{ marginLeft: '8px' }}>
-                                                //                 <FontAwesomeIcon icon={faAngleUp} style={{ cursor: 'pointer' }}
-
-                                                //                 />
-                                                //                 <FontAwesomeIcon icon={faAngleDown} style={{ cursor: 'pointer' }}
-
-                                                //                 />
-                                                //             </div>
-                                                //         </div>
-                                                //     </div>
-                                                //     <div className={style.cart__item_sub_info}>
-                                                //         <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                                //             onClick={() => handleDelete(bag.id_product)}
-                                                //         />
-                                                //     </div>
-                                                // </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                                <div></div>
-                                <div className={style.order}>
-                                    <h2>Order</h2>
-                                    <div className={style.order__form}>
-                                        {/* <input type="text" placeholder="Your name" /> */}
-                                        <input type="text" placeholder="Phonenumber"
-                                            onChange={(e) => setPhone(e.target.value)}
-                                        />
-                                        <input type="text" placeholder="Address"
-                                            onChange={(e) => setAddress(e.target.value)}
-                                        />
+                                                )
+                                            })
+                                        }
                                     </div>
-                                    <h3>Summary</h3>
-                                    <div className={style.order__summary}>
-                                        <div>
-                                            <span>Subtotal</span>
-                                            <span>{number}</span>
+                                    <div></div>
+                                    <div className={style.order}>
+                                        <h2>Order</h2>
+                                        <div className={style.order__form}>
+                                            {/* <input type="text" placeholder="Your name" /> */}
+                                            <input type="text" placeholder="Phonenumber"
+                                                onChange={(e) => setPhone(e.target.value)}
+                                            />
+                                            <input type="text" placeholder="Address"
+                                                onChange={(e) => setAddress(e.target.value)}
+                                            />
                                         </div>
-                                        <div>
-                                            <span>Estimated Delivery {'&'} Handling</span>
-                                            <span>{delivery}</span>
+                                        <h3>Summary</h3>
+                                        <div className={style.order__summary}>
+                                            <div>
+                                                <span>Subtotal</span>
+                                                <span>{number}</span>
+                                            </div>
+                                            <div>
+                                                <span>Estimated Delivery {'&'} Handling</span>
+                                                <span>{delivery}</span>
+                                            </div>
+                                            <div>
+                                                <span>Total</span>
+                                                <span>{total}</span>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <span>Total</span>
-                                            <span>{total}</span>
-                                        </div>
+                                        <div className="btn"
+                                            onClick={handleAddNewCart}
+                                        >CHECK OUT</div>
                                     </div>
-                                    <div className="btn"
-                                        onClick={handleAddNewCart}
-                                    >CHECK OUT</div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                }
-                {
-                    (bags.length <= 0) &&
-                    (
-                        <div className={style.bag__empty}>
-                            <div className={style.bag__wrapper}>
-                                <div className={style.product__list}>
-                                    <h2>Your Bag</h2>
-                                    <div className={style.bag__empty_content}>
-                                        <h5>There are no items in your bag.</h5>
-                                        <Link to="/" style={{ "textDecoration": "none" }}>
-                                            <span>SHOP NOW</span>
-                                            <i className="fa-solid fa-arrow-right-long"></i>
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div></div>
-                                <div className={style.order}>
-                                    <h2>Order</h2>
-                                    <div className={style.order__form}>
-                                        {/* <input type="text" placeholder="Your name" /> */}
-                                        <input type="text" placeholder="Phonenumber"
-                                            onChange={(e) => setPhone(e.target.value)}
-                                        />
-                                        <input type="text" placeholder="Address"
-                                            onChange={(e) => setAddress(e.target.value)}
-                                        />
-                                    </div>
-                                    <h3>Summary</h3>
-                                    <div className={style.order__summary}>
-                                        <div>
-                                            <span>Subtotal</span>
-                                            <span>{number}</span>
-                                        </div>
-                                        <div>
-                                            <span>Estimated Delivery {'&'} Handling</span>
-                                            <span>{delivery}</span>
-                                        </div>
-                                        <div>
-                                            <span>Total</span>
-                                            <span>{total}</span>
+                        )
+                        :
+                        (
+                            <div className={style.bag__empty}>
+                                <div className={style.bag__wrapper}>
+                                    <div className={style.product__list}>
+                                        <h2>Your Bag</h2>
+                                        <div className={style.bag__empty_content}>
+                                            <h5>There are no items in your bag.</h5>
+                                            <Link to="/" style={{ "textDecoration": "none" }}>
+                                                <span>SHOP NOW</span>
+                                                <i className="fa-solid fa-arrow-right-long"></i>
+                                            </Link>
                                         </div>
                                     </div>
-                                    <div className="btn"
-                                        onClick={handleAddNewCart}
-                                    >CHECK OUT</div>
+                                    <div></div>
+                                    <div className={style.order}>
+                                        <h2>Order</h2>
+                                        <div className={style.order__form}>
+                                            {/* <input type="text" placeholder="Your name" /> */}
+                                            <input type="text" placeholder="Phonenumber"
+                                                onChange={(e) => setPhone(e.target.value)}
+                                            />
+                                            <input type="text" placeholder="Address"
+                                                onChange={(e) => setAddress(e.target.value)}
+                                            />
+                                        </div>
+                                        <h3>Summary</h3>
+                                        <div className={style.order__summary}>
+                                            <div>
+                                                <span>Subtotal</span>
+                                                <span>0</span>
+                                            </div>
+                                            <div>
+                                                <span>Estimated Delivery {'&'} Handling</span>
+                                                <span>{delivery}</span>
+                                            </div>
+                                            <div>
+                                                <span>Total</span>
+                                                <span>0</span>
+                                            </div>
+                                        </div>
+                                        <div className="btn"
+                                            onClick={handleAddNewCart}
+                                        >CHECK OUT</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
+                        )
                 }
+                
             </div>
             <div className="products">
                 <div className="products__wrapper">

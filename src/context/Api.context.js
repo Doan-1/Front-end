@@ -90,6 +90,22 @@ export default class API {
         })
         return a;
     }
+    async getProductbyPriceGreater(price) {
+        let a = await axios.get(`http://localhost:4001/product/price/greater/`+ price)
+        return a.data;
+    }
+    async getProductbyPriceSmaller(price) {
+        let a = await axios.get(`http://localhost:4001/product/price/smaller/`+ price)
+        return a.data;
+    }
+    async getProductbyPriceBetween(greaterthan, smallerthan) {
+        let a = await axios.get(`http://localhost:4001/product/price/between/`+ greaterthan +`/`+ smallerthan)
+        return a.data;
+    }
+    async getTotalbyIDuser(id) {
+        let a = await axios.get(`http://localhost:4001/order/total/`+ id)
+        return a.data;
+    }
     // async getChartHome() {
     //     let a = await axios.get(`${global.config.API}/chart-home`)
     //     return a.data;

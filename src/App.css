@@ -47,7 +47,7 @@ html{
 
 /* Products */
 .products{
-  padding: 60px 0 100px 150px;
+  padding: 60px 88px 100px 88px;
 }
 .products__wrapper{
   display: flex;
