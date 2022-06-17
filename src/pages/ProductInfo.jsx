@@ -98,6 +98,9 @@ const ProductInfo = () => {
         api.getTopProduct().then(res => {
             setTopProducts(res.data);
         })
+        api.getCommentBySlug(param.slug).then(res =>{
+            setComment(res.data)
+        })
     }, [window.location.href])
     const handleAddOrder = () => {
         api.createNewOrder("1", product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", "UE36");
