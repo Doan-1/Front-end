@@ -16,23 +16,8 @@ const Home = () => {
 
     const api = new API();
     const [products, setProducts] = useState([])
-    const [itemsProduct, setItemsProduct] = useState([]);
+    const [topProducts, setTopProducts] = useState([]);
 
-    // const [test, setTest] = useState([])
-    // useEffect(() => {
-    //     api.getProductbyCategory(`New-Arrivals`).then(res => {
-    //         console.log(res.data)
-    //     })
-    // })
-
-    // const getapi = async () => {
-
-    //     await api.getProduct().then(res => {
-    //         setProducts(res.data)
-    //     });
-
-    //     // await api.createProduct('5','Nike Jordan 5','4.000.000','abc','Nike-Jordan-5','https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png','shoes');
-    // } 
     useEffect(() => {
         api.getProduct().then((data) => {
             setProducts(data.data)
@@ -40,21 +25,41 @@ const Home = () => {
         })
         // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
     }, [window.location.href])
-    // useEffect(async () => {
-    //     await api.getProduct().then(data => {
-    //         setProducts(data)
-    //         console.log(data)
-    //     });
+    useEffect(() => {
+        api.getTopProduct().then(res => {
+            setTopProducts(res.data);
+        })
+    }, [window.location.href])
 
-    // });
-    ////Tao product moi (id,name,price,description,slug,category,col,sty,detail,disc,disc_percent,thumb)
-    //await api.createProduct('4','Nike Jordan 3','5.000.000','ahihihih','Nike-Jordan-3','null','shoes');
-    ////createNewOrder(iduser,idproduct,productname,price,thumbnail,color,style,quantity,size)
-    //await api.createNewOrder('1','2','name','price','thumbnail','color','style','3','size')
-    ////delete 1 product khoi order ('id_user','id_product')
-    //await api.deleteOneInOrder('1','2')
-    //// them 1 cart moi(iduser, tot, add, phon)
-    //await api.createNewCart('1','3.000.000','so 4 duong 31C an phu quan 2','0834644336');
+    let slideIndex = 1;
+
+    const plusSlides = (n) => {
+        showSlides(slideIndex += n);
+    }
+
+    const currentSlide = (n) => {
+        showSlides(slideIndex = n);
+    }
+
+    const showSlides = (n) => {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        console.log(slides);
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+    useEffect(() => {
+        // showSlides(1);
+    }, [window.location.href])
     return (
         <div>
             <div className={style.main}>
@@ -75,11 +80,56 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className={style.slide}>
-                    <div className={style.slide__img}>
-                        <img src={slide_img} alt="" />
+                <div className={style.slideshow__container}>
+
+                    <div className={style.mySlides + " " + style.fade}>
+                        <img src={slide_img} alt="" style={{ width: "100%" }} />
                     </div>
+
+                    <div className={style.mySlides + " " + style.fade}>
+                        <img src={slide_img} alt="" style={{ width: "100%" }} />
+                    </div>
+
+                    <div className={style.mySlides + " " + style.fade}>
+                        <img src={slide_img} alt="" style={{ width: "100%" }} />
+                    </div>
+
+                    {/* <a className="prev" href="" onClick={() => plusSlides(-1)}>❮</a>
+                    <a className="next" href="" onClick={() => plusSlides(1)}>❯</a> */}
+
                 </div>
+                <br />
+
+                <div style={{ textAlign: "center" }}>
+                    <span className={style.dot} onClick={() => currentSlide(1)}></span>
+                    <span className={style.dot} onClick={() => currentSlide(2)}></span>
+                    <span className={style.dot} onClick={() => currentSlide(3)}></span>
+                </div>
+
+                {/* <div classNameclassNameme={style.slide}>
+                    <div id={style.slideshow}>
+                        <div className={style.slide__wrapper}>
+                            <div className={style.slide__img}>
+                                <img src="https://images.pexels.com/photos/2382325/pexels-photo-2382325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                            </div>
+                            <div className={style.slide__img}>
+                                <img src="https://images.pexels.com/photos/3578393/pexels-photo-3578393.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                            </div>
+                            <div className={style.slide__img}>
+                                <img src="https://images.pexels.com/photos/4484184/pexels-photo-4484184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
+                            </div>
+                            {/* <div className="slide__img">
+                                <img src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1380,c_limit/10fbe895-e733-49aa-8d66-138eba257285/jordan.jpg" alt="" />
+                            </div>
+                            <div className="slide__img">
+                                <img src="https://censor.vn/wp-content/uploads/2022/01/giay-jordan.jpg" alt="" />
+                            </div> */}
+                {/* </div>
+                    </div> */}
+                {/* <div className={style.slide__img}>
+                        <img src={slide_img} alt="" />
+                    </div> */}
+                {/* // </div> */}
                 <div className={style.category}>
                     <div className={style.category__list}>
                         <div className={style.category__item}>
@@ -133,18 +183,20 @@ const Home = () => {
                             <h2>Best Seller</h2>
                             <div className="products__list">
                                 {
-                                    products.map((product) => {
-                                        return (
-                                            <div className="products__item">
-                                                <div className="products__img">
-                                                    <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                    topProducts.map((product, index) => {
+                                        if (index < 10) {
+                                            return (
+                                                <div key={index} className="products__item">
+                                                    <div className="products__img">
+                                                        <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                    </div>
+                                                    <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
+                                                        <h3>{product.product_name || "ProductName"}</h3>
+                                                    </Link>
+                                                    <span>{product.product_price || "50$"}₫</span>
                                                 </div>
-                                                <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                    <h3>{product.product_name || "ProductName"}</h3>
-                                                </Link>
-                                                <span>{product.product_price || "50$"}₫</span>
-                                            </div>
-                                        )
+                                            )
+                                        }
                                     })
                                 }
                             </div>
@@ -153,10 +205,10 @@ const Home = () => {
                             <h2>Discount</h2>
                             <div className="products__list">
                                 {
-                                    products.map((product) => {
+                                    products.map((product, index) => {
                                         if (product.categories === `Sales`) {
                                             return (
-                                                <div className="products__item">
+                                                <div key={index} className="products__item">
                                                     <div className="products__img">
                                                         <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                     </div>
@@ -164,7 +216,10 @@ const Home = () => {
                                                         <h3>{product.product_name || "ProductName"}</h3>
                                                     </Link>
                                                     <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
-                                                        <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}₫</span>
+                                                        <div>
+                                                            <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}₫</span>
+                                                            <span style={{"fontSize" : "14px", "marginLeft": "16px", "textDecorationLine": "line-through"}}>{parseInt(product.product_price) || "500000"}₫</span>
+                                                        </div>
                                                         <span style={{ "fontSize": "14px", "marginRight": "16px", "color": "#ec4242" }}>(-{product.discount_percent}%)</span>
                                                     </div>
                                                 </div>

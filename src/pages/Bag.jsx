@@ -7,6 +7,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import ItemBag from "../components/ConstComponets/ItemBag";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const api = new API();
 const Bag = () => {
@@ -22,26 +23,23 @@ const Bag = () => {
     const [phone, setPhone] = useState('')
     const [favorites, setFavorites] = useState([])
 
+    
     useEffect(() => {
         api.getOrderbyIDuser('1').then((data) => {
             setBags(data.data[0].orders)
-            // let a = 0;
-            // data.data[0].orders.map(item => {
-            //     a += parseInt(item.product_price) * parseInt(item.quantity)
-            // })
-
-            // setNumber(a)
-            // setTotal(a + delivery)
-            // console.log(data.data[0].orders)
         })
-
-
-        // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
-        // if (bags.length > 0) {
-        //     setShowBags(!showBag)
-        // }
+        
     }, [window.location.href])
 
+    useEffect(() => {
+        let a = 0;
+        bags.forEach((bag, index) => {
+            a += Number(bag.product_price)*Number(bag.quantity);
+        })
+        setNumber(a)
+        setTotal(a + delivery)
+    },[bags])
+    
     useEffect(() => {
         api.getUserbyIDuser('1').then(res => {
             setFavorites(res.data.favorite)
@@ -49,25 +47,29 @@ const Bag = () => {
         })
     }, [window.location.href])
 
-    useEffect(() => {
-        api.getTotalbyIDuser('1').then(res => {
-            // console.log(res.data);
-            setNumber(res.data)
-            setTotal(res.data + delivery)
-        })
-    },[])
+    // useEffect(() => {
+    //     api.getTotalbyIDuser('1').then(res => {
+    //         console.log(res.data);
+    //         setNumber(res.data || 0)
+    //         setTotal(res.data + delivery || 0)
+    //     })
+    // },[window.location.href])
 
     const handleAddNewCart = () => {
         api.createNewCart("1", total, address, phone);
         setBags([])
         setNumber(0)
         setTotal(0)
+        setAddress('')
+        setPhone('')
+        // window.location.reload();
     }
-    const handleDelete = (id, stt, price, quantities) => {
+    const handleDelete = (bag, id, stt, price, quantities) => {
+        console.log(bag);
+        setNumber(number => number - (Number(bag.product_price)*Number(bag.quantity)))
+        setTotal(total => total - (Number(bag.product_price)*Number(bag.quantity)))
         let newArr = bags.filter((item, i) => i !== stt)
         setBags(newArr)
-        setNumber(total => total - Number(price)*Number(quantities))
-        setTotal(total => total - Number(price)*Number(quantities))
         api.deleteOneInOrder("1", id)
     }
     return (
@@ -84,10 +86,10 @@ const Bag = () => {
                                             bags.map((bag, index) => {
                                                 return (
                                                     <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-                                                        <ItemBag props={{bag, setNumber, number, total, setTotal}} key={index} />
+                                                        <ItemBag props={{bag,  setNumber, number, total, setTotal, delivery}} key={index} />
                                                         <div className={style.cart__item_sub_info}>
                                                             <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                                                onClick={() => handleDelete(bag.id_product, index, bag.product_price, bag.quantity)}
+                                                                onClick={() => handleDelete(bag, bag.id_product, index, bag.product_price, bag.quantity)}
                                                             />
                                                         </div>
                                                     </div>
@@ -100,10 +102,10 @@ const Bag = () => {
                                         <h2>Order</h2>
                                         <div className={style.order__form}>
                                             {/* <input type="text" placeholder="Your name" /> */}
-                                            <input type="text" placeholder="Phonenumber"
+                                            <input type="text" value={phone} placeholder="Phonenumber"
                                                 onChange={(e) => setPhone(e.target.value)}
                                             />
-                                            <input type="text" placeholder="Address"
+                                            <input type="text" value={address} placeholder="Address"
                                                 onChange={(e) => setAddress(e.target.value)}
                                             />
                                         </div>

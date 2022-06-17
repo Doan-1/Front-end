@@ -1,48 +1,56 @@
-.main{
+.main {
     margin-top: 60px;
 }
-.intro{
+
+.intro {
     display: grid;
     grid-template-columns: 40% 60%;
     color: var(--primary-color);
 }
-.intro__wrap{
+
+.intro__wrap {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.intro__info{
+
+.intro__info {
     display: flex;
     flex-direction: column;
     text-align: start;
     justify-content: center;
     padding: 0 150px;
 }
-.intro__info h2{
+
+.intro__info h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 64px;
     font-weight: 900;
     line-height: 80px;
     margin: 0;
 }
-.intro__info span{
+
+.intro__info span {
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 400;
     line-height: 32px;
     margin: 16px 0 24px;
 }
-.intro__img{
+
+.intro__img {
     display: flex;
     justify-content: end;
     position: relative;
 }
-.intro__img img{
+
+.intro__img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-.intro__sub_img{
+
+.intro__sub_img {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -53,40 +61,97 @@
     object-fit: cover;
 }
 
-.slide{
-    padding: 120px 0 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow__container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
 }
-.slide__img{
-    width: 100%;
-    height: 100%;
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 5px;
+  width: 5px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+.category {
     padding: 0 150px;
 }
-.slide__img img{
+
+.category__list {
+    display: grid;
+    grid-template-columns: 48% 4% 48%;
+}
+
+.category__item {
+    position: relative;
+    margin: 24px;
+}
+
+.category__item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.category{
-    padding: 0 150px;
-}
-.category__list{
-    display: grid;
-    grid-template-columns: 48% 4% 48%;
-}
-.category__item{
-    position: relative;
-    margin: 24px;
-}
-.category__item img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.overlayer{
+.overlayer {
     position: absolute;
     top: 0;
     left: 0;
@@ -100,30 +165,33 @@
     justify-content: space-between;
     padding: 24px;
 }
-.overlayer h3{
+
+.overlayer h3 {
     font-family: 'Montserrat', sans-serif;
     font-size: 28px;
     font-weight: 600;
     line-height: 32px;
     margin: 0;
 }
-.shop{
+
+.shop {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-items: center;
     cursor: pointer;
 }
-.shop span{
+
+.shop span {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     font-weight: 500;
     line-height: 16px;
     margin: 0;
 }
-.shop i{
+
+.shop i {
     font-size: 14px;
     margin-left: 8px;
     line-height: 14px;
 }
-

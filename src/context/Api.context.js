@@ -6,6 +6,10 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/product`)
         return a.data;
     }
+    async getTopProduct() {
+        let a = await axios.get(`http://localhost:4001/product/desc`) 
+        return a.data;
+    }
     async createProduct(id,name,price,description,slug,category,col,sty,detail,disc,disc_percent,thumb ) {
         let a = await axios.post(`http://localhost:4001/product/create`,{
             id_product : id,
@@ -24,9 +28,20 @@ export default class API {
         })
         return a;
     }
-    async getComment() {
-        let a = await axios.get(`http://localhost:4001/comment`)
+    async getCommentByIdProduct(id) {
+        let a = await axios.get(`http://localhost:4001/comment/` + id)
         return a.data;
+    }
+    async createNewComment(id, name, productid, context, starnum, timenow){
+        let a = await axios.post(`http://localhost:4001/comment/create`,{
+            id_user: id,
+            user_name: name,
+            id_product: productid,
+            comment: context,
+            star: starnum,
+            time: timenow,
+        })
+        return a;
     }
     async getOrderbyIDuser(id) {
         let a = await axios.get(`http://localhost:4001/order/`+ id)

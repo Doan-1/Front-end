@@ -3,6 +3,7 @@ import API from '../context/Api.context';
 import { useParams, Link } from "react-router-dom";
 import style from '../css/Products_page.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const Products = () => {
     const api = new API();
@@ -110,16 +111,19 @@ const Products = () => {
                             {
                                 products.map((product) => {
                                     return (
-                                        <div className={"products__item" + " " + style.products__item}>
-                                            <div className="products__img">
-                                                <img src={product.thumbnail || 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png'} alt="" />
+                                        // eslint-disable-next-line no-useless-concat
+                                        <SkeletonTheme color="#202020" highlightColor="#444">
+                                            <div className={"products__item" + " " + style.products__item}>
+                                                <div className="products__img">
+                                                    <img src={product.thumbnail || <Skeleton count={10} />} alt="" />
+                                                </div>
+                                                <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
+                                                    <h3>{product.product_name || <Skeleton count={10} />}</h3>
+                                                </Link>
+                                                <span>${product.product_price || <Skeleton count={10} />}</span>
+                                                <div className={"btn" + " " + style.btn__favorite}>BUY NOW</div>
                                             </div>
-                                            <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                <h3>{product.product_name || "ProductName"}</h3>
-                                            </Link>
-                                            <span>${product.product_price}</span>
-                                            <div className={"btn" + " " + style.btn__favorite}>BUY NOW</div>
-                                        </div>
+                                        </SkeletonTheme>
                                     )
                                 })
                             }
