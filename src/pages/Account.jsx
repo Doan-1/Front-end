@@ -1,6 +1,7 @@
 import { prettyDOM } from "@testing-library/react";
 import { useState } from "react";
 import style from '../css/Account_page.module.css'
+import { Link } from "react-router-dom";
 
 
 import facebook_logo from '../assets/facebook.png'
@@ -9,12 +10,16 @@ import google_logo from '../assets/google.png'
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import API from "../context/Api.context";
 
 
 const Account = () => {
-
+    const api = new API();
     const [showSignIn, setShowSignIn] = useState(true)
     const [showSignUp, setShowSignUp] = useState(false)
+    const [username, setusername] = useState('')
+    const [password, setpassword] = useState('')
+    const [eror, seteror] = useState('')
 
     const hanldeSignIn = () => {
         setShowSignIn(false)
@@ -23,6 +28,37 @@ const Account = () => {
     const hanldeSignUp = () => {
         setShowSignUp(false)
         setShowSignIn(true)
+    }
+    const handleLoggin =() =>{
+        console.log(username,password);
+        if(username != "" && password != "")
+        {
+            api.UserLogin(username,password).then((data) => {
+                console.log(data.data)
+                // let a = data.data.data;
+                // console.log(a);
+                if(data.data.data === 'Sai mk')
+                {
+                    //console.log("mk sai")
+                    window.alert("Mật khẩu không đúng");
+                    setpassword("")
+                }
+                if(data.data.data === 'Sai username')
+                {
+                    //console.log("mk sai")
+                    window.alert("Tài khoản không đúng");
+                    setusername("")
+                    setpassword("")
+                }
+                else{
+                    localStorage.setItem ('userid', data.data.data);
+                }
+            })
+        }
+        else
+        {
+            window.alert("Tài khoản mật khẩu không được trống");
+        }
     }
 
     return (
@@ -34,12 +70,13 @@ const Account = () => {
                     <div className={style.signin}>
                         <div className={style.wrapper}>
                             <h2>Welcome back, my friend!</h2>
+                            <span color="red">{}</span>
                             <div className={style.input}>
                                 <div className={style.input_item}>
-                                    <input type="text" placeholder="Email" required/>
+                                    <input type="text" value={username} onChange={e => setusername(e.target.value)} placeholder="User name" required/>
                                 </div>
                                 <div className={style.input_item}>
-                                    <input type="password" placeholder="Password" required />
+                                    <input type="password" value={password} onChange={e => setpassword(e.target.value)} placeholder="Password" required />
                                     <FontAwesomeIcon icon={faEye} style={{position: 'absolute', top: '50%', right: '16px', transform: 'translateY(calc(-50%))', fontSize: '16px', color: 'var(--text-color)', cursor: 'pointer'}} />
                                 </div>
                             </div>
@@ -49,7 +86,7 @@ const Account = () => {
                                     Policy</a> and <a>Terms of Use.</a>
                                 </p>
                             </div>
-                            <div className="btn">
+                            <div className="btn" onClick={handleLoggin}>
                                 <span>SIGN IN</span>
                             </div>
                             <div className={style.text}>

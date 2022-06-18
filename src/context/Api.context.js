@@ -121,6 +121,33 @@ export default class API {
         let a = await axios.get(`http://localhost:4001/order/total/`+ id)
         return a.data;
     }
+    //for login
+    async UserLogin(name,pass)
+    {
+        let a = await axios.post(`http://localhost:4001/user/login`,{
+            username : name,
+            password : pass
+        })
+        return a;
+    }
+    async UserRegister(name,pass)
+    {
+        let a = await axios.post(`http://localhost:4001/user/resigter`,{
+            username : name,
+            password : pass
+        })
+        return a;
+    }
+    async UpdateUser(id,email,phone,address)
+    {
+        let a = await axios.post(`http://localhost:4001/user/update`,{
+            id: id,
+            email: email,
+            phone: phone,
+            address: address
+        })
+        return a;
+    }
     // async getChartHome() {
     //     let a = await axios.get(`${global.config.API}/chart-home`)
     //     return a.data;
