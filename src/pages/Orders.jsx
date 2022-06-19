@@ -6,34 +6,34 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Orders = () => {
+    let id = localStorage.getItem('userid')
     const api = new API();
     const [orders, setOrders] = useState([])
     const [orderItems, setOrderItems] = useState([])
     const [showCartInfo, setShowCartInfo] = useState(false)
     useEffect(() => {
-        api.getCartbyIDuser("1").then(res => {
+        api.getCartbyIDuser(id).then(res => {
             setOrders(res.data)
             // console.log(res.data)
         })
+
     }, [window.location.href])
 
 
     // useEffect(() => {
     //     api.getCartinfobyId("1").then(res => {
-    //         setOrderItems(res.data[0].orders)
-    //         // console.log(res.data[0].orders)
+    //         // setOrderItems(res.data[0].orders)
+    //         console.log(res.data[0].orders)
     //     })
     // }, [window.location.href])
 
-    const handleShowInfo = (id) => {
-        setShowCartInfo(!showCartInfo)
-        api.getCartinfobyId(id).then(res => {
-            setOrderItems(res.data[0].orders)
-            // console.log(res.data[0].orders)
-        })
-
-        console.log(id)
-    }
+    // const handleShowInfo = (id) => {
+    //     setShowCartInfo(!showCartInfo)
+    //     api.getCartinfobyId(id).then(res => {
+    //         // setOrderItems(res.data[0].orders)
+    //         console.log(res.data[id].orders)
+    //     })
+    // }
     return (
         <div className={style.order}>
             <div className={style.order__wrapper}>
@@ -41,41 +41,42 @@ const Orders = () => {
                 <div className={style.order__info}>
                     <div className={style.order__search}>
                         <input type="text" placeholder="Search for order code" />
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        {/* <i class="fa-solid fa-magnifying-glass"></i> */}
                     </div>
                     <div className={style.order__table}>
                         <table>
-                            <tr>
-                                <th>Code</th>
-                                <th>Total</th>
-                                <th>Address</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                            {
-                                orders.map((order, index) => {
-                                    return (
-                                        <tr>
-                                            <td>{order.id_cart}</td>
-                                            <td>{order.total}</td>
-                                            <td>{order.address}</td>
-                                            <td>{order.status}</td>
-                                            <td><FontAwesomeIcon icon={faCircleInfo} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                            onClick={() => handleShowInfo(order.id_cart)}
-                                            /></td>
-                                        </tr>
-                                    )
-                                })
-                            }
-
+                            <tbody>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Total</th>
+                                    <th>Address</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                                {
+                                    orders.map((order, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{order.id_cart}</td>
+                                                <td>{order.total}</td>
+                                                <td>{order.address}</td>
+                                                <td>{order.status}</td>
+                                                <td><FontAwesomeIcon icon={faCircleInfo} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
+                                                    // onClick={() => handleShowInfo(order.id_cart)}
+                                                /></td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
                         </table>
                         {
                             showCartInfo &&
                             <div className={style.list__product}>
                                 <div className={style.product__list}>
                                     <div style={{ textAlign: 'end' }}>
-                                        <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }} 
-                                        onClick={handleShowInfo}
+                                        <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
+                                            // onClick={handleShowInfo}
                                         />
                                     </div>
                                     <h2 style={{ "textAlign": "center", "marginBottom": "36px" }}>List of your products</h2>
@@ -84,7 +85,7 @@ const Orders = () => {
                                             return (
                                                 <div key={index} className={style.product__item} >
                                                     <div className={style.product__img}>
-                                                        <img src={orderItem.thumbnail  || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                        <img src={orderItem.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                     </div>
                                                     <div></div>
                                                     <div className={style.product__info_detail}>

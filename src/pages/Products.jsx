@@ -109,11 +109,11 @@ const Products = () => {
                     <div className={style.products__right}>
                         <div className={style.products__list}>
                             {
-                                products.map((product) => {
+                                products.map((product, index) => {
                                     return (
                                         // eslint-disable-next-line no-useless-concat
                                         <SkeletonTheme color="#202020" highlightColor="#444">
-                                            <div className={"products__item" + " " + style.products__item}>
+                                            <div className={"products__item" + " " + style.products__item} key={index}>
                                                 <div className="products__img">
                                                     <img src={product.thumbnail || <Skeleton count={10} />} alt="" />
                                                 </div>

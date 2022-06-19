@@ -13,12 +13,12 @@ import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Home = () => {
-    var id = localStorage.getItem('userid');
+    // var id = localStorage.getItem('userid');
     const api = new API();
     const [products, setProducts] = useState([])
     const [topProducts, setTopProducts] = useState([]);
     useEffect(() => {
-        console.log(id)
+        // console.log(id)
         api.getProduct().then((data) => {
             setProducts(data.data)
             // console.log(data.data[18].discount_percent)

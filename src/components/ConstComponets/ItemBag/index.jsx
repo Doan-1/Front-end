@@ -10,10 +10,10 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 const api = new API();
 const ItemBag = ({ props }) => {
-    const { bag, setNumber, number, total, setTotal, delivery,} = props;
+    const {id, bag, setNumber, number, total, setTotal, delivery,} = props;
     const [quantities, setQuantities] = useState(Number(bag.quantity) || 1)
     useEffect(() => {
-        console.log(props)
+        // console.log(props)
         bag.quantity = quantities;
         // setNumber(number => Number(bag.product_price)*Number(bag.quantity))
         // setTotal(total => (Number(bag.product_price)*Number(bag.quantity) + delivery))
@@ -23,14 +23,14 @@ const ItemBag = ({ props }) => {
         setQuantities(quantities => quantities + 1);
         setNumber(number => number + Number(bag.product_price))
         setTotal(total => total + Number(bag.product_price))
-        api.createNewOrder("1", bag.id_product, bag.product_name, bag.product_price, bag.thumbnail, bag.color, bag.style, quantities + 1, bag.size);
+        api.createNewOrder(id, bag.id_product, bag.product_name, bag.product_price, bag.thumbnail, bag.color, bag.style, quantities + 1, bag.size);
 
     }
     const handleDecrease = (i) => {
         setQuantities(quantities => quantities - 1);
         setNumber(number => number - Number(bag.product_price))
         setTotal(total => total - Number(bag.product_price))
-        api.createNewOrder("1", bag.id_product, bag.product_name, bag.product_price, bag.thumbnail, bag.color, bag.style, quantities - 1, bag.size);
+        api.createNewOrder(id, bag.id_product, bag.product_name, bag.product_price, bag.thumbnail, bag.color, bag.style, quantities - 1, bag.size);
     }
     return (
         <SkeletonTheme color="#202020" highlightColor="#444">

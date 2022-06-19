@@ -12,41 +12,52 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 const api = new API();
 const Bag = () => {
 
-    
+    let id = localStorage.getItem('userid')
     // console.log('re-render');
     const [bags, setBags] = useState([])
     // const [products, setProducts] = useState([])
     const [number, setNumber] = useState(0)
     const delivery = 15;
     const [total, setTotal] = useState(0)
-    const [address, setAddress] = useState('')
-    const [phone, setPhone] = useState('')
+    const [address, setAddress] = useState('1')
+    const [phone, setPhone] = useState('1')
     const [favorites, setFavorites] = useState([])
+    const [topProducts, setTopProducts] = useState([]);
 
-    
+
     useEffect(() => {
-        api.getOrderbyIDuser('1').then((data) => {
+
+        api.getOrderbyIDuser(id).then((data) => {
             setBags(data.data[0].orders)
         })
-        
+
     }, [window.location.href])
 
     useEffect(() => {
-        let a = 0;
-        bags.forEach((bag, index) => {
-            a += Number(bag.product_price)*Number(bag.quantity);
-        })
-        setNumber(a)
-        setTotal(a + delivery)
-    },[bags])
-    
+        if (bags.length > 0) {
+            let a = 0;
+            bags.forEach((bag, index) => {
+                a += Number(bag.product_price) * Number(bag.quantity);
+            })
+            console.log(a);
+            setNumber(a)
+            setTotal(a + delivery)
+        }
+    }, [bags])
+
     useEffect(() => {
-        api.getUserbyIDuser('1').then(res => {
+        api.getUserbyIDuser(id).then(res => {
             setFavorites(res.data.favorite)
             // console.log(res.data.favorite)
         })
+
     }, [window.location.href])
 
+    useEffect(() => {
+        api.getTopProduct().then(res => {
+            setTopProducts(res.data);
+        })
+    }, [window.location.href])
     // useEffect(() => {
     //     api.getTotalbyIDuser('1').then(res => {
     //         console.log(res.data);
@@ -56,7 +67,8 @@ const Bag = () => {
     // },[window.location.href])
 
     const handleAddNewCart = () => {
-        api.createNewCart("1", total, address, phone);
+        // console.log(bags)
+        // api.createNewCart(id, total, address, phone);
         setBags([])
         setNumber(0)
         setTotal(0)
@@ -64,13 +76,10 @@ const Bag = () => {
         setPhone('')
         // window.location.reload();
     }
-    const handleDelete = (bag, id, stt, price, quantities) => {
-        console.log(bag);
-        setNumber(number => number - (Number(bag.product_price)*Number(bag.quantity)))
-        setTotal(total => total - (Number(bag.product_price)*Number(bag.quantity)))
+    const handleDelete = (bag, idProduct, stt, price, quantities) => {
         let newArr = bags.filter((item, i) => i !== stt)
         setBags(newArr)
-        api.deleteOneInOrder("1", id)
+        api.deleteOneInOrder(id, idProduct)
     }
     return (
         <div>
@@ -85,8 +94,8 @@ const Bag = () => {
                                         {
                                             bags.map((bag, index) => {
                                                 return (
-                                                    <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }}>
-                                                        <ItemBag props={{bag,  setNumber, number, total, setTotal, delivery}} key={index} />
+                                                    <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }} key={index}>
+                                                        <ItemBag props={{ bag, setNumber, number, total, setTotal, delivery }} key={index} />
                                                         <div className={style.cart__item_sub_info}>
                                                             <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
                                                                 onClick={() => handleDelete(bag, bag.id_product, index, bag.product_price, bag.quantity)}
@@ -180,7 +189,7 @@ const Bag = () => {
                             </div>
                         )
                 }
-                
+
             </div>
             <div className="products">
                 <div className="products__wrapper">
@@ -188,9 +197,9 @@ const Bag = () => {
                         <h2>Your Favourites</h2>
                         <div className="products__list">
                             {
-                                favorites.map((product) => {
+                                favorites.map((product, index) => {
                                     return (
-                                        <div className="products__item">
+                                        <div className="products__item" key={index}>
                                             <div className="products__img">
                                                 <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                             </div>
@@ -208,18 +217,20 @@ const Bag = () => {
                         <h2>Recommendation for you</h2>
                         <div className="products__list">
                             {
-                                favorites.map((product) => {
-                                    return (
-                                        <div className="products__item">
-                                            <div className="products__img">
-                                                <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                topProducts.map((product, index) => {
+                                    if (index < 10) {
+                                        return (
+                                            <div key={index} className="products__item">
+                                                <div className="products__img">
+                                                    <img src={product.thumbnail || <Skeleton />} alt="" />
+                                                </div>
+                                                <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
+                                                    <h3>{product.product_name || <Skeleton />}</h3>
+                                                </Link>
+                                                <span>{product.product_price || <Skeleton />}₫</span>
                                             </div>
-                                            <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                <h3>{product.product_name || "ProductName"}</h3>
-                                            </Link>
-                                            <span>${product.product_price}</span>
-                                        </div>
-                                    )
+                                        )
+                                    }
                                 })
                             }
                         </div>
