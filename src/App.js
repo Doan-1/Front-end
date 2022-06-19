@@ -1,7 +1,8 @@
 // import {useState} from 'react';
 import './App.css';
 import React from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import Header from '../src/components/ConstComponets/Header'
 import Footer from '../src/components/ConstComponets/Footer'
@@ -16,7 +17,7 @@ import Orders from './pages/Orders'
 
 const configComponent = (component) => {
   return (
-    <div style={{"position": "relative"}}>
+    <div style={{ "position": "relative" }}>
       <Header />
       <div>
         {component}
@@ -60,6 +61,13 @@ let path = [
   }
 ]
 function App() {
+  const routePath = useLocation();
+  const onTop = () => {
+    window.scrollTo(0, 0);
+  }
+  useEffect(() => {
+    onTop()
+  }, [routePath]);
   return (
     <Routes>
       {

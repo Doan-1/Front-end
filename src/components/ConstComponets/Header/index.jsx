@@ -143,7 +143,7 @@ const Header = () => {
                                         <Link to={'/bag'} style={{ "color": "#4682B4" }} >
                                             <FontAwesomeIcon icon={faBagShopping} />
                                         </Link>
-                                        {
+                                        {/* {
                                             (products.length > 0) ?
                                                 (
                                                     <div className={style.cart}>
@@ -207,7 +207,7 @@ const Header = () => {
                                                         </div>
                                                     </div>
                                                 )
-                                        }
+                                        } */}
 
                                     </li>
                                     <li className={style.account__func_item}>

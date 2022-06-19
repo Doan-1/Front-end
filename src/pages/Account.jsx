@@ -1,7 +1,7 @@
 import { prettyDOM } from "@testing-library/react";
 import { useState } from "react";
 import style from '../css/Account_page.module.css'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 
@@ -65,11 +65,33 @@ const Account = () => {
             window.alert("Tài khoản mật khẩu không được trống");
         }
     }
+    const handleSIGNUP = () => {
+        console.log(username, password);
+        if (username != "" && password != "") {
+            api.UserRegister(username, password).then((data) => {
+                console.log(data.data)
+                // let a = data.data.data;
+                // console.log(a);
+                if (data.data.data === 'username da ton tai') {
+                    //console.log("mk sai")
+                    window.alert("Tên tài khoản đã tồn tại");
+                    setusername("")
+                    setpassword("")
+                }
+                else {
+                    setShow(!show);
+                }
+            })
+        }
+        else {
+            window.alert("Tài khoản mật khẩu không được trống");
+        }
+    }
     useEffect(() => {
-        if(user){
+        if (user) {
             navigate('/')
         }
-    },[user])
+    }, [user])
     return (
         <div>
             {
@@ -125,23 +147,18 @@ const Account = () => {
                                     <div className={style.input}>
                                         <div className={style.input_addition}>
                                             <div className={style.input_item}>
-                                                <input type="text" placeholder="Your name" required />
+                                                <input type="text" value={username} onChange={e => setusername(e.target.value)} placeholder="User name" required />
                                             </div>
-                                            {/* <div></div>
-                                            <div className={style.input_item}>
-                                                <input type="text" placeholder="Date of birth" required />
-                                                <FontAwesomeIcon icon={faCalendarDays} style={{ position: 'absolute', top: '50%', right: '16px', transform: 'translateY(calc(-50%))', fontSize: '16px', color: 'var(--text-color)', cursor: 'pointer' }} />
-                                            </div> */}
                                         </div>
-                                        <div className={style.input_item}>
+                                        {/* <div className={style.input_item}>
                                             <input type="text" placeholder="Email" required />
-                                        </div>
-                                        <div className={style.input_item}>
-                                            <input type="password" placeholder="Password" required />
 
+                                        </div> */}
+                                        <div className={style.input_item}>
+                                            <input type="password" value={password} onChange={e => setpassword(e.target.value)} placeholder="Password" required />
                                         </div>
                                     </div>
-                                    <div className="btn">
+                                    <div className="btn" onClick={handleSIGNUP}>
                                         <span>SIGN UP</span>
                                     </div>
                                     <div className={style.text}>

@@ -19,8 +19,8 @@ const Bag = () => {
     const [number, setNumber] = useState(0)
     const delivery = 15;
     const [total, setTotal] = useState(0)
-    const [address, setAddress] = useState('1')
-    const [phone, setPhone] = useState('1')
+    const [address, setAddress] = useState('')
+    const [phone, setPhone] = useState('')
     const [favorites, setFavorites] = useState([])
     const [topProducts, setTopProducts] = useState([]);
 
