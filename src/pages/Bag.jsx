@@ -68,13 +68,17 @@ const Bag = () => {
 
     const handleAddNewCart = () => {
         // console.log(bags)
-        // api.createNewCart(id, total, address, phone);
-        setBags([])
-        setNumber(0)
-        setTotal(0)
-        setAddress('')
-        setPhone('')
-        // window.location.reload();
+        console.log(id)
+        console.log(total)
+        console.log(address)
+        console.log(phone)
+        api.createNewCart(id, total, address, phone);
+        // setBags([])
+        // setNumber(0)
+        // setTotal(0)
+        // setAddress('')
+        // setPhone('')
+        window.location.reload();
     }
     const handleDelete = (bag, idProduct, stt, price, quantities) => {
         let newArr = bags.filter((item, i) => i !== stt)
