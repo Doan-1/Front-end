@@ -73,12 +73,12 @@ const Bag = () => {
         console.log(address)
         console.log(phone)
         api.createNewCart(id, total, address, phone);
-        // setBags([])
-        // setNumber(0)
-        // setTotal(0)
-        // setAddress('')
-        // setPhone('')
-        window.location.reload();
+        setBags([])
+        setNumber(0)
+        setTotal(0)
+        setAddress('')
+        setPhone('')
+        // window.location.reload();
     }
     const handleDelete = (bag, idProduct, stt, price, quantities) => {
         let newArr = bags.filter((item, i) => i !== stt)
@@ -99,7 +99,7 @@ const Bag = () => {
                                             bags.map((bag, index) => {
                                                 return (
                                                     <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }} key={index}>
-                                                        <ItemBag props={{ bag, setNumber, number, total, setTotal, delivery }} key={index} />
+                                                        <ItemBag props={{id,  bag, setNumber, number, total, setTotal, delivery }} key={index} />
                                                         <div className={style.cart__item_sub_info}>
                                                             <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
                                                                 onClick={() => handleDelete(bag, bag.id_product, index, bag.product_price, bag.quantity)}

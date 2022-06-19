@@ -24,7 +24,6 @@ const ItemBag = ({ props }) => {
         setNumber(number => number + Number(bag.product_price))
         setTotal(total => total + Number(bag.product_price))
         api.createNewOrder(id, bag.id_product, bag.product_name, bag.product_price, bag.thumbnail, bag.color, bag.style, quantities + 1, bag.size);
-
     }
     const handleDecrease = (i) => {
         setQuantities(quantities => quantities - 1);

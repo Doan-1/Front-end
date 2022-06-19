@@ -28,8 +28,8 @@ export default class API {
         })
         return a;
     }
-    async getCommentBySlug(slug) {
-        let a = await axios.get(`http://localhost:4001/comment/` + slug)
+    async getCommentbyId(id) {
+        let a = await axios.get(`http://localhost:4001/comment/` + id)
         return a.data;
     }
     async createNewComment(id, name, productid, context, starnum, timenow){

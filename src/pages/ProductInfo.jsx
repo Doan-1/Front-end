@@ -22,7 +22,10 @@ const ProductInfo = () => {
     const [showDetailInfo, setShowDetailInfo] = useState(true)
     const [arrowUp, setArrowUp] = useState(true)
     const [arrowDown, setArrowDown] = useState(false)
+    const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
+    const [sizes, setSizes] = useState([])
+    const [size, setSize] = useState('')
     const handleShow = () => {
         setArrowUp(true)
         setArrowDown(false)
@@ -43,7 +46,7 @@ const ProductInfo = () => {
     useEffect(() => {
         api.getProductbySlug(param.slug).then(res => {
             setProduct(res.data)
-            console.log(res.data)
+            setSizes(res.data.size)
         })
     }, [window.location.href])
     // useEffect(() => {
@@ -55,24 +58,45 @@ const ProductInfo = () => {
         api.getTopProduct().then(res => {
             setTopProducts(res.data);
         })
-        api.getCommentBySlug(param.slug).then(res =>{
-            setComment(res.data)
-        })
+
     }, [window.location.href])
+
+    useEffect(() => {
+        api.getCommentbyId(product.id_product).then(res => {
+            setComments(res.data.reverse())
+        })
+    }, [product])
     const handleAddOrder = () => {
-        if(id){
-            api.createNewOrder(id, product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", "UE36");
+        if (id) {
+            if (size === '') {
+                api.createNewOrder(user.id_user, product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", sizes[0]);
+            }
+            else {
+                api.createNewOrder(user.id_user, product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", size);
+            }
         }
     }
     const handleAddFavor = (idproduct) => {
-        if(id){
+        if (id) {
             api.updatefavorProduct(id, idproduct)
         }
     }
     const time = new Date();
     const handleCreateComment = () => {
         setComment('')
-        api.createNewComment(user.id_user, user.user_name ,product.id_product, comment, '4', time.toUTCString() );
+        comments.push({
+            id_user: user.id_user,
+            user_name: user.user_name,
+            id_product: product.id_product,
+            comment: comment,
+            star: '4',
+            time: time.toUTCString(),
+        })
+        api.createNewComment(user.id_user, user.user_name, product.id_product, comment, '4', time.toUTCString());
+    }
+    const handleAddSize = (s) => {
+        setSize(s)
+        console.log(s);
     }
     return (
         <SkeletonTheme color="#202020" highlightColor="#444">
@@ -80,22 +104,22 @@ const ProductInfo = () => {
                 <div className={style.main}>
                     <div className={style.product__info}>
                         <div className={style.product__img_list}>
-                            <div className={style.product__img_item  || <Skeleton />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/3408ff81-cd5f-4e70-af33-169863846088/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
-                            <div className={style.product__img_item  || <Skeleton  />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/324e8369-ab08-48db-abde-aeb795c379a4/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
-                            <div className={style.product__img_item  || <Skeleton />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/b9c3907e-2c14-489a-af72-e7d274dfb7de/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
-                            <div className={style.product__img_item  || <Skeleton />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/477d0ad8-a8a8-480e-ab6a-075f0481496f/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
-                            <div className={style.product__img_item  || <Skeleton />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/c1f3a7e8-a96a-4dae-ae44-500c39cf8dc5/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
-                            <div className={style.product__img_item  || <Skeleton />}>
+                            <div className={style.product__img_item || <Skeleton />}>
                                 <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/3270b875-2d46-4000-ab1d-e72864df223a/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
                             </div>
                         </div>
@@ -112,6 +136,20 @@ const ProductInfo = () => {
                             <div className={style.product__syle}>
                                 <h5>Style:</h5>
                                 <span>{product.style || <Skeleton />}</span>
+                            </div>
+                            <div className={style.product__size}>
+                                <h5>Size:</h5>
+                                <div className={style.product__size_list}>
+                                    {
+                                        sizes.map((item, index) => {
+                                            return (
+                                                <button key={index} className={style.product__size_item}
+                                                    onClick={() => handleAddSize(item)}
+                                                >{item}</button>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                             <div className={style.product__btn}>
                                 <div class="btn"
@@ -136,27 +174,6 @@ const ProductInfo = () => {
                                     {
                                         showDetailInfo &&
                                         <div class={style.product__view_info_contrain}>
-                                            {/* <div class={style.product__view_info_item}>
-                                            <h5>CANVAS CLASSIC.</h5>
-                                            <p>The sneaker you know and love is back with a fresh material play to change up the look and feel.The Air Jordan 1 Mid SE Utility is built with layers of rugged canvas in sharply contrasting black and white.A Gym Red outsole and Wings logo bring in a colour that's long been a favourite for the classic midtop shoe.</p>
-                                        </div>
-                                        <div class={style.product__view_info_item}>
-                                            <h5>Benefits</h5>
-                                            <p>Encapsulated Air-Sole unit in the heel provides lightweight cushioning. <br />
-                                                Canvas in the upper for durability.
-                                                Rubber cupsole provides traction on a variety of surfaces.
-                                            </p>
-                                        </div>
-                                        <div class={style.product__view_info_item}>
-                                            <h5>Product Details</h5>
-                                            <p>Wings logo on the collar <br />
-                                                Stitched-down textile Swoosh logo <br />
-                                                Textile tongue with woven label <br />
-                                                Foam midsole <br />
-                                                Colour Shown: Black/Gym Red/White <br />
-                                                Style: DD9338-016 <br />
-                                                Country/Region of Origin: Vietnam</p>
-                                        </div> */}
                                             <p>{product.detail_info || <Skeleton />}</p>
                                         </div>
                                     }
@@ -182,25 +199,18 @@ const ProductInfo = () => {
                             <input type="text" placeholder="Enter comment" value={comment} onChange={e => setComment(e.target.value)} />
                             <button type="Submit" onClick={handleCreateComment}>Post</button>
                         </div>
-                        <div className={style.comment__item}>
-                            <h3 className={style.comment__item_username}>Kim Lien</h3>
-                            <p className={style.comment__item_content}>This is comment line</p>
-                        </div>
-                        <div className={style.comment__item}>
-                            <h3 className={style.comment__item_username}>Kim Lien</h3>
-                            <p className={style.comment__item_content}>This is comment line</p>
-                        </div>
-                        <div className={style.comment__item}>
-                            <h3 className={style.comment__item_username}>Kim Lien</h3>
-                            <p className={style.comment__item_content}>This is comment line</p>
-                        </div>
-                        <div className={style.comment__item}>
-                            <h3 className={style.comment__item_username}>Kim Lien</h3>
-                            <p className={style.comment__item_content}>This is comment line</p>
-                        </div>
-                        <div className={style.comment__item}>
-                            <h3 className={style.comment__item_username}>Kim Lien</h3>
-                            <p className={style.comment__item_content}>This is comment line</p>
+                        <div style={{ "marginTop": "16px" }}>
+                            {
+                                comments.map((item, index) => {
+                                    return (
+                                        <div className={style.comment__item} key={index}>
+                                            <h3 className={style.comment__item_username}>{item.user_name}</h3>
+                                            <h4 className={style.comment__item_time}>{item.time}</h4>
+                                            <p className={style.comment__item_content}>{item.comment}</p>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                     <div className="products">
@@ -214,12 +224,12 @@ const ProductInfo = () => {
                                                 return (
                                                     <div key={index} className="products__item">
                                                         <div className="products__img">
-                                                            <img src={product.thumbnail  || <Skeleton />} alt="" />
+                                                            <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                                         </div>
                                                         <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                            <h3>{product.product_name  || <Skeleton />}</h3>
+                                                            <h3>{product.product_name || <Skeleton />}</h3>
                                                         </Link>
-                                                        <span>{product.product_price  || <Skeleton />}₫</span>
+                                                        <span>{product.product_price || <Skeleton />}₫</span>
                                                     </div>
                                                 )
                                             }

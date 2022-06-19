@@ -14,26 +14,26 @@ const Orders = () => {
     useEffect(() => {
         api.getCartbyIDuser(id).then(res => {
             setOrders(res.data)
-            // console.log(res.data)
+            console.log(res.data)
         })
 
     }, [window.location.href])
 
 
     // useEffect(() => {
-    //     api.getCartinfobyId("1").then(res => {
-    //         // setOrderItems(res.data[0].orders)
+    //     api.getCartinfobyId(id).then(res => {
+    //         setOrderItems(res.data[0].orders)
     //         console.log(res.data[0].orders)
     //     })
     // }, [window.location.href])
 
-    // const handleShowInfo = (id) => {
-    //     setShowCartInfo(!showCartInfo)
-    //     api.getCartinfobyId(id).then(res => {
-    //         // setOrderItems(res.data[0].orders)
-    //         console.log(res.data[id].orders)
-    //     })
-    // }
+    const handleShowInfo = (id) => {
+        setShowCartInfo(!showCartInfo)
+        api.getCartinfobyId(id).then(res => {
+            setOrderItems(res.data[0].orders)
+            console.log(res.data[0].orders)
+        })
+    }
     return (
         <div className={style.order}>
             <div className={style.order__wrapper}>
@@ -62,7 +62,7 @@ const Orders = () => {
                                                 <td>{order.address}</td>
                                                 <td>{order.status}</td>
                                                 <td><FontAwesomeIcon icon={faCircleInfo} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                                    // onClick={() => handleShowInfo(order.id_cart)}
+                                                    onClick={() => handleShowInfo(order.id_cart)}
                                                 /></td>
                                             </tr>
                                         )
@@ -76,7 +76,7 @@ const Orders = () => {
                                 <div className={style.product__list}>
                                     <div style={{ textAlign: 'end' }}>
                                         <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
-                                            // onClick={handleShowInfo}
+                                            onClick={handleShowInfo}
                                         />
                                     </div>
                                     <h2 style={{ "textAlign": "center", "marginBottom": "36px" }}>List of your products</h2>
