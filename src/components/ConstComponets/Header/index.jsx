@@ -99,7 +99,7 @@ const Header = () => {
                     </li>
 
                     <li className={style.menu__item}>
-                        <Link to="/product/category/Man">
+                        <Link to="/product/category/Men">
                             Man
                         </Link>
                     </li>
