@@ -28,6 +28,7 @@ const ProductInfo = () => {
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
     const [sizes, setSizes] = useState([])
+    const [images, setImages] = useState([])
     const [size, setSize] = useState('')
     const [state, setState] = useState('')
     const handleShow = () => {
@@ -51,8 +52,9 @@ const ProductInfo = () => {
         api.getProductbySlug(param.slug).then(res => {
             setProduct(res.data)
             setSizes(res.data.size)
+            setImages(res.data.listImage)
             setState(res.data.status)
-            console.log(res.data.status)
+            console.log(res.data.listImage[0])
         })
     }, [window.location.href])
     // useEffect(() => {
@@ -113,24 +115,15 @@ const ProductInfo = () => {
                 <div className={style.main}>
                     <div className={style.product__info}>
                         <div className={style.product__img_list}>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/3408ff81-cd5f-4e70-af33-169863846088/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/324e8369-ab08-48db-abde-aeb795c379a4/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/b9c3907e-2c14-489a-af72-e7d274dfb7de/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/477d0ad8-a8a8-480e-ab6a-075f0481496f/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/c1f3a7e8-a96a-4dae-ae44-500c39cf8dc5/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
-                            <div className={style.product__img_item || <Skeleton />}>
-                                <img src="https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/3270b875-2d46-4000-ab1d-e72864df223a/air-jordan-1-mid-shoes-wWD4z0.png" alt="" />
-                            </div>
+                            {
+                                images.map((item, index) => {
+                                    return (
+                                        <div className={style.product__img_item}>
+                                            <img src={item || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                         <div></div>
                         {
