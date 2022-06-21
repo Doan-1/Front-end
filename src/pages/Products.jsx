@@ -110,9 +110,32 @@ const Products = () => {
                         <div className={style.products__list}>
                             {
                                 products.map((product, index) => {
-                                    return (
-                                        // eslint-disable-next-line no-useless-concat
-                                        <SkeletonTheme color="#202020" highlightColor="#444">
+                                    if (product.categories === `Sales`) {
+                                        return (
+                                            // eslint-disable-next-line no-useless-concat
+                                            <SkeletonTheme color="#202020" highlightColor="#444">
+                                                <div className={"products__item" + " " + style.products__item} key={index}>
+                                                    <div className="products__img">
+                                                        <img src={product.thumbnail || <Skeleton count={10} />} alt="" />
+                                                    </div>
+                                                    <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
+                                                        <h3>{product.product_name || <Skeleton count={10} />}</h3>
+                                                    </Link>
+                                                    <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
+                                                        <div>
+                                                            <span>${parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}</span>
+                                                            <span style={{ "fontSize": "14px", "marginLeft": "16px", "textDecorationLine": "line-through" }}>{parseInt(product.product_price) || "500000"}₫</span>
+                                                        </div>
+                                                        <span style={{ "fontSize": "14px", "marginRight": "16px", "color": "#ec4242" }}>(-{product.discount_percent}%)</span>
+                                                    </div>
+                                                    {/* <div className={"btn" + " " + style.btn__favorite}>BUY NOW</div> */}
+                                                </div>
+                                            </SkeletonTheme>
+                                        )
+                                    }
+                                    else{
+                                        return(
+                                            <SkeletonTheme color="#202020" highlightColor="#444">
                                             <div className={"products__item" + " " + style.products__item} key={index}>
                                                 <div className="products__img">
                                                     <img src={product.thumbnail || <Skeleton count={10} />} alt="" />
@@ -120,11 +143,16 @@ const Products = () => {
                                                 <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
                                                     <h3>{product.product_name || <Skeleton count={10} />}</h3>
                                                 </Link>
-                                                <span>${product.product_price || <Skeleton count={10} />}</span>
-                                                <div className={"btn" + " " + style.btn__favorite}>BUY NOW</div>
+                                                <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
+                                                    <div>
+                                                        <span>${product.product_price || "500000"}</span> 
+                                                    </div>
+                                                </div>
+                                                {/* <div className={"btn" + " " + style.btn__favorite}>BUY NOW</div> */}
                                             </div>
                                         </SkeletonTheme>
-                                    )
+                                        )
+                                    }
                                 })
                             }
                         </div>

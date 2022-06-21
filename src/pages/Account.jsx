@@ -147,7 +147,7 @@ const Account = () => {
                                     <div className={style.input}>
                                         <div className={style.input_addition}>
                                             <div className={style.input_item}>
-                                                <input type="text" value={username} onChange={e => setusername(e.target.value)} placeholder="User name" required />
+                                                <input type="text" placeholder={username} />
                                             </div>
                                         </div>
                                         {/* <div className={style.input_item}>
@@ -155,7 +155,7 @@ const Account = () => {
 
                                         </div> */}
                                         <div className={style.input_item}>
-                                            <input type="password" value={password} onChange={e => setpassword(e.target.value)} placeholder="Password" required />
+                                            <input type="password" placeholder={password} />
                                         </div>
                                     </div>
                                     <div className="btn" onClick={handleSIGNUP}>

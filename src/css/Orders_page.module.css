@@ -82,10 +82,10 @@ td{
     background-color: #fff;
     padding: 24px 48px;
     min-width: 900px;
-    min-height: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
-    margin: auto auto;
+    margin: 60px auto;
 }
 .product__item{
     display: grid;

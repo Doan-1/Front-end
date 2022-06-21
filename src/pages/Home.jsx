@@ -105,41 +105,18 @@ const Home = () => {
                     <span className={style.dot} onClick={() => currentSlide(2)}></span>
                     <span className={style.dot} onClick={() => currentSlide(3)}></span>
                 </div>
-
-                {/* <div classNameclassNameme={style.slide}>
-                    <div id={style.slideshow}>
-                        <div className={style.slide__wrapper}>
-                            <div className={style.slide__img}>
-                                <img src="https://images.pexels.com/photos/2382325/pexels-photo-2382325.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
-                            </div>
-                            <div className={style.slide__img}>
-                                <img src="https://images.pexels.com/photos/3578393/pexels-photo-3578393.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
-                            </div>
-                            <div className={style.slide__img}>
-                                <img src="https://images.pexels.com/photos/4484184/pexels-photo-4484184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" alt="" />
-                            </div>
-                            {/* <div className="slide__img">
-                                <img src="https://static.nike.com/a/images/f_auto/dpr_1.3,cs_srgb/w_1380,c_limit/10fbe895-e733-49aa-8d66-138eba257285/jordan.jpg" alt="" />
-                            </div>
-                            <div className="slide__img">
-                                <img src="https://censor.vn/wp-content/uploads/2022/01/giay-jordan.jpg" alt="" />
-                            </div> */}
-                {/* </div>
-                    </div> */}
-                {/* <div className={style.slide__img}>
-                        <img src={slide_img} alt="" />
-                    </div> */}
-                {/* // </div> */}
                 <div className={style.category}>
                     <div className={style.category__list}>
                         <div className={style.category__item}>
                             <img src={women_img} alt="" />
                             <div className={style.overlayer}>
                                 <h3>WOMEN</h3>
-                                <div className={style.shop}>
-                                    <span>Shop now</span>
-                                    <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', position: 'relative', top: '1px' }} />
-                                </div>
+                                <Link to="/product/category/Women" style={{"textDecoration": "none", "color": "#fff"}}>
+                                    <div className={style.shop}>
+                                        <span>Shop now</span>
+                                        <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', position: 'relative', top: '1px' }} />
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                         <div></div>
@@ -147,10 +124,12 @@ const Home = () => {
                             <img src={man_img} alt="" />
                             <div className={style.overlayer}>
                                 <h3>MAN</h3>
-                                <div className={style.shop}>
-                                    <span>Shop now</span>
-                                    <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', top: '-4px' }} />
-                                </div>
+                                <Link to="/product/category/Men" style={{"textDecoration": "none", "color": "#fff"}}>
+                                    <div className={style.shop}>
+                                        <span>Shop now</span>
+                                        <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', top: '-4px' }} />
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -171,7 +150,7 @@ const Home = () => {
                                                     <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
                                                         <h3>{product.product_name || "ProductName"}</h3>
                                                     </Link>
-                                                    <span>{product.product_price || "50$"}₫</span>
+                                                    <span>${product.product_price || "50$"}</span>
                                                 </div>
                                             )
                                         }
@@ -193,7 +172,7 @@ const Home = () => {
                                                     <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
                                                         <h3>{product.product_name || "ProductName"}</h3>
                                                     </Link>
-                                                    <span>{product.product_price || "50$"}₫</span>
+                                                    <span>${product.product_price || "50$"}</span>
                                                 </div>
                                             )
                                         }
@@ -217,8 +196,8 @@ const Home = () => {
                                                     </Link>
                                                     <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
                                                         <div>
-                                                            <span>{parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}₫</span>
-                                                            <span style={{"fontSize" : "14px", "marginLeft": "16px", "textDecorationLine": "line-through"}}>{parseInt(product.product_price) || "500000"}₫</span>
+                                                            <span>${parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}</span>
+                                                            <span style={{ "fontSize": "14px", "marginLeft": "16px", "textDecorationLine": "line-through" }}>{parseInt(product.product_price) || "500000"}₫</span>
                                                         </div>
                                                         <span style={{ "fontSize": "14px", "marginRight": "16px", "color": "#ec4242" }}>(-{product.discount_percent}%)</span>
                                                     </div>

@@ -125,14 +125,15 @@ const Header = () => {
                 </ul>
             </nav>
             <div className={style.feature}>
-                <div className={style.search}>
+                <div></div>
+                {/* <div className={style.search}>
                     <div className={style.search__icon}>
                         <FontAwesomeIcon icon={faSearch} style={{ fontSize: '16px' }} />
                     </div>
                     <div className={style.search__input}>
                         <input type="text" placeholder="Search..." />
                     </div>
-                </div>
+                </div> */}
                 {
                     user ?
                         (

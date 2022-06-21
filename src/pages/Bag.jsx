@@ -37,7 +37,12 @@ const Bag = () => {
         if (bags.length > 0) {
             let a = 0;
             bags.forEach((bag, index) => {
-                a += Number(bag.product_price) * Number(bag.quantity);
+                if (bag.categories === `Sales`) {
+                    a += Number(bag.product_price) *(100 - bag.discount_percent) / 100 * Number(bag.quantity);
+                }
+                else{
+                    a += Number(bag.product_price) * Number(bag.quantity);
+                }
             })
             console.log(a);
             setNumber(a)

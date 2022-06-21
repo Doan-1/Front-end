@@ -78,9 +78,11 @@ const ProductInfo = () => {
         if (id) {
             if (size === '') {
                 api.createNewOrder(user.id_user, product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", sizes[0]);
+                window.alert('Add to Bags success!')
             }
             else {
                 api.createNewOrder(user.id_user, product.id_product, product.product_name, product.product_price, product.thumbnail, product.color, product.style, "1", size);
+                window.alert('Add to Bags success!')
             }
         }
         else {
@@ -90,6 +92,7 @@ const ProductInfo = () => {
     const handleAddFavor = (idproduct) => {
         if (id) {
             api.updatefavorProduct(id, idproduct)
+            window.alert('Add to Favorites sucess!')
         }
     }
     const time = new Date();
@@ -132,7 +135,7 @@ const ProductInfo = () => {
                                     <div className={style.product__info_detail}>
                                         <h3>{product.product_name || <Skeleton />}</h3>
                                         <span>{product.classify || <Skeleton />}</span>
-                                        <h4>{product.product_price || <Skeleton />}</h4>
+                                        <h4>${product.product_price || <Skeleton />}</h4>
                                         <p>{product.description || <Skeleton />}</p>
                                         <div className={style.product__color}>
                                             <h5>Colour Shown:</h5>
@@ -179,7 +182,7 @@ const ProductInfo = () => {
                                                 {
                                                     showDetailInfo &&
                                                     <div class={style.product__view_info_contrain}>
-                                                        <p>{product.detail_info || <Skeleton />}</p>
+                                                        <p style={{"height": "480px", "overflowY":"scroll"}}>{product.detail_info || <Skeleton />}</p>
                                                     </div>
                                                 }
                                             </div>
