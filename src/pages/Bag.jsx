@@ -8,11 +8,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import ItemBag from "../components/ConstComponets/ItemBag";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Loading from "../components/ConstComponets/Loading";
+import ProductItem from "../components/ConstComponets/ProductItem";
 
 const api = new API();
 const Bag = () => {
 
     let id = localStorage.getItem('userid')
+    const [loading, setLoading] = useState(true)
     // console.log('re-render');
     const [bags, setBags] = useState([])
     // const [products, setProducts] = useState([])
@@ -25,25 +28,22 @@ const Bag = () => {
     const [topProducts, setTopProducts] = useState([]);
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
+    //     api.getOrderbyIDuser(id).then((data) => {
+    //         setBags(data.data[0].orders)
+    //     })
+
+    // }, [window.location.href])
+
+    useEffect(() => {
         api.getOrderbyIDuser(id).then((data) => {
             setBags(data.data[0].orders)
         })
-
-    }, [window.location.href])
-
-    useEffect(() => {
         if (bags.length > 0) {
-            let a = 0;
-            bags.forEach((bag, index) => {
-                if (bag.categories === `Sales`) {
-                    a += Number(bag.product_price) *(100 - bag.discount_percent) / 100 * Number(bag.quantity);
-                }
-                else{
-                    a += Number(bag.product_price) * Number(bag.quantity);
-                }
-            })
+            let a = bags.reduce((total, bag) => {
+                return total +(Number(bag.product_price)) * Number(bag.quantity);
+            },0)
             console.log(a);
             setNumber(a)
             setTotal(a + delivery)
@@ -63,13 +63,10 @@ const Bag = () => {
             setTopProducts(res.data);
         })
     }, [window.location.href])
-    // useEffect(() => {
-    //     api.getTotalbyIDuser('1').then(res => {
-    //         console.log(res.data);
-    //         setNumber(res.data || 0)
-    //         setTotal(res.data + delivery || 0)
-    //     })
-    // },[window.location.href])
+
+    useEffect(() => {
+        setLoading(false)
+    }, [bags, favorites, topProducts])
 
     const handleAddNewCart = () => {
         // console.log(bags)
@@ -78,17 +75,12 @@ const Bag = () => {
         console.log(address)
         console.log(phone)
         api.createNewCart(id, total, address, phone);
-        setBags([])
+        setPhone('')
+        setAddress('')
         setNumber(0)
         setTotal(0)
-        setAddress('')
-        setPhone('')
+        setBags([])
         // window.location.reload();
-    }
-    const handleDelete = (bag, idProduct, stt, price, quantities) => {
-        let newArr = bags.filter((item, i) => i !== stt)
-        setBags(newArr)
-        api.deleteOneInOrder(id, idProduct)
     }
     return (
         <div>
@@ -104,12 +96,12 @@ const Bag = () => {
                                             bags.map((bag, index) => {
                                                 return (
                                                     <div className="item" style={{ display: 'flex', flexDirection: 'row', marginBottom: '16px' }} key={index}>
-                                                        <ItemBag props={{id,  bag, setNumber, number, total, setTotal, delivery }} key={index} />
-                                                        <div className={style.cart__item_sub_info}>
+                                                        <ItemBag props={{id, bag, bags, setBags, number, setNumber, total, setTotal}} key={index} />
+                                                        {/* <div className={style.cart__item_sub_info}>
                                                             <FontAwesomeIcon icon={faXmark} style={{ fontSize: '16px', color: '#4682B4', cursor: 'pointer' }}
                                                                 onClick={() => handleDelete(bag, bag.id_product, index, bag.product_price, bag.quantity)}
                                                             />
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 )
                                             })
@@ -127,7 +119,7 @@ const Bag = () => {
                                                 onChange={(e) => setAddress(e.target.value)}
                                             />
                                         </div>
-                                        <h3>Summary</h3>
+                                        <h3 className='mt-4'>Summary</h3>
                                         <div className={style.order__summary}>
                                             <div>
                                                 <span>Subtotal</span>
@@ -175,7 +167,7 @@ const Bag = () => {
                                                 onChange={(e) => setAddress(e.target.value)}
                                             />
                                         </div>
-                                        <h3>Summary</h3>
+                                        <h3 className='mt-4'>Summary</h3>
                                         <div className={style.order__summary}>
                                             <div>
                                                 <span>Subtotal</span>
@@ -208,15 +200,7 @@ const Bag = () => {
                             {
                                 favorites.map((product, index) => {
                                     return (
-                                        <div className="products__item" key={index}>
-                                            <div className="products__img">
-                                                <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                            </div>
-                                            <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                <h3>{product.product_name || "ProductName"}</h3>
-                                            </Link>
-                                            <span>${product.product_price}</span>
-                                        </div>
+                                        <ProductItem props={{ product, index }} />
                                     )
                                 })
                             }
@@ -229,14 +213,8 @@ const Bag = () => {
                                 topProducts.map((product, index) => {
                                     if (index < 10) {
                                         return (
-                                            <div key={index} className="products__item">
-                                                <div className="products__img">
-                                                    <img src={product.thumbnail || <Skeleton />} alt="" />
-                                                </div>
-                                                <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                    <h3>{product.product_name || <Skeleton />}</h3>
-                                                </Link>
-                                                <span>{product.product_price || <Skeleton />}₫</span>
+                                            <div className='basis-1/4 first:pl-0'>
+                                                <ProductItem props={{ product, index }} />
                                             </div>
                                         )
                                     }
@@ -246,6 +224,12 @@ const Bag = () => {
                     </div>
                 </div>
             </div>
+            {
+                loading &&
+                (
+                    <Loading />
+                )
+            }
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { Routes, Route, Link, useLocation } from "react-router-dom";
 
 import Header from '../src/components/ConstComponets/Header'
 import Footer from '../src/components/ConstComponets/Footer'
+import ScrollButton from './components/ConstComponets/ScrollButton';
 import Home from './pages/Home'
 import Account from './pages/Account'
 import ProductInfo from './pages/ProductInfo'
@@ -15,14 +16,18 @@ import Favorites from './pages/Favorites'
 import Profile from './pages/Profile'
 import Orders from './pages/Orders'
 
+
 const configComponent = (component) => {
   return (
     <div style={{ "position": "relative" }}>
-      <Header />
       <div>
-        {component}
+        <Header />
+        <div>
+          {component}
+        </div>
+        <Footer />
       </div>
-      <Footer />
+      <ScrollButton />
     </div>
   )
 }

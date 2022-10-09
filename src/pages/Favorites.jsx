@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import style from '../css/Favorites_page.module.css'
 import API from "../context/Api.context";
 import { Link } from "react-router-dom";
+import Loading from "../components/ConstComponets/Loading";
+import ProductItem from "../components/ConstComponets/ProductItem";
 
 const Favorites = () => {
     const api = new API()
+    const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
     const [topProducts, setTopProducts] = useState([]);
     useEffect(() => {
@@ -16,6 +19,9 @@ const Favorites = () => {
             })
         }
     }, [window.location.href])
+    useEffect(() => {
+        setLoading(false)
+    },[products])
     useEffect(() => {
         api.getTopProduct().then(res => {
             setTopProducts(res.data);
@@ -30,24 +36,9 @@ const Favorites = () => {
                         {
                             products.map((product, index) => {
                                 return (
-                                    <div key={index} className={"products__item" + " " + style.products__item}>
-                                        <div className="products__img">
-                                            <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                        </div>
-                                        <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                            <h3>{product.product_name || "ProductName"}</h3>
-                                        </Link>
-                                        <span>{product.product_price || "50$"}₫</span>
-                                        {/* <div className={"btn" + " " + style.btn__favorite}>VIEW DETAIL</div> */}
+                                    <div className='basis-1/4 first:pl-0'>
+                                        <ProductItem props={{ product, index }} />
                                     </div>
-                                    // <div className={"products__item" + " " + style.products__item}>
-                                    //     <div className="products__img">
-                                    //         <img src={product.thumbnail} alt="" />
-                                    //     </div>
-                                    //     <h3>{product.product_name}</h3>
-                                    //     <span>${product.product_price}</span>
-                                    //     <div className={"btn" + " " + style.btn__favorite}>VIEW DETAIL</div>
-                                    // </div>
                                 )
                             })
                         }
@@ -63,15 +54,7 @@ const Favorites = () => {
                                 topProducts.map((product, index) => {
                                     if (index < 10) {
                                         return (
-                                            <div key={index} className="products__item">
-                                                <div className="products__img">
-                                                    <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                                </div>
-                                                <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                    <h3>{product.product_name || "ProductName"}</h3>
-                                                </Link>
-                                                <span>{product.product_price || "50$"}₫</span>
-                                            </div>
+                                            <ProductItem props={{ product, index }} />
                                         )
                                     }
                                 })
@@ -81,6 +64,12 @@ const Favorites = () => {
                     </div>
                 </div>
             </div>
+            {
+                loading &&
+                (
+                    <Loading />
+                )
+            }
         </div>
     )
 }

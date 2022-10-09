@@ -37,11 +37,11 @@ const Profile = () => {
                 <div className={style.profile__info}>
                     <div className={style.first_line}>
                         <div className={style.name}>
-                            <input type="text" value={userName} onChange={e => setUserName(e.target.value)} placeholder="Username" />
+                            <input type="text" value={userName} placeholder="Username" />
                         </div>
                     </div>
                     <input type="text" value={userEmail} onChange={e => setUseEmail(e.target.value)} placeholder="Email"/>
-                    <input type="password" value={userPassword} onChange={e => setUserPassword(e.target.value)} placeholder="Passwod"/>
+                    <input type="password" value={userPassword} placeholder="Passwod"/>
                     <div className={style.phone_number}>
                         <input type="text" value={userPhonenumber} onChange={e => setUserPhonenumber(e.target.value)} placeholder="Phonenumber" />
                     </div>

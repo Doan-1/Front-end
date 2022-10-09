@@ -11,6 +11,8 @@ import API from "../context/Api.context";
 import { Link } from "react-router-dom";
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/ConstComponets/Loading";
+import ProductItem from "../components/ConstComponets/ProductItem";
 
 
 
@@ -18,6 +20,7 @@ const ProductInfo = () => {
     let id = localStorage.getItem('userid')
     let navigate = useNavigate();
     const api = new API();
+    const [loading, setLoading] = useState(true)
     const param = useParams();
     const [user, setUser] = useState(false)
     const [product, setProduct] = useState({})
@@ -56,12 +59,12 @@ const ProductInfo = () => {
             setState(res.data.status)
             console.log(res.data.listImage[0])
         })
+        setTimeout(() => {
+        }, 500)
     }, [window.location.href])
-    // useEffect(() => {
-    //     api.getCommentByIdProduct().then(res => {
-    //         console.log(res.data)
-    //     })
-    // })
+    useEffect(() => {
+        setLoading(false)
+    },[product])
     useEffect(() => {
         api.getTopProduct().then(res => {
             setTopProducts(res.data);
@@ -113,196 +116,196 @@ const ProductInfo = () => {
         console.log(s);
     }
     return (
-        <SkeletonTheme color="#202020" highlightColor="#444">
-            <div>
-                <div className={style.main}>
-                    <div className={style.product__info}>
-                        <div className={style.product__img_list}>
-                            {
-                                images.map((item, index) => {
-                                    return (
-                                        <div className={style.product__img_item}>
-                                            <img src={item || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        <div></div>
+        <div>
+            <div className={style.main}>
+                <div className={style.product__info}>
+                    <div className={style.product__img_list}>
                         {
-                            state === 'con hang' ?
-                                (
-                                    <div className={style.product__info_detail}>
-                                        <h3>{product.product_name || <Skeleton />}</h3>
-                                        <span>{product.classify || <Skeleton />}</span>
-                                        <h4>${product.product_price || <Skeleton />}</h4>
-                                        <p>{product.description || <Skeleton />}</p>
-                                        <div className={style.product__color}>
-                                            <h5>Colour Shown:</h5>
-                                            <span>{product.color || <Skeleton />}</span>
-                                        </div>
-                                        <div className={style.product__syle}>
-                                            <h5>Style:</h5>
-                                            <span>{product.style || <Skeleton />}</span>
-                                        </div>
-                                        <div className={style.product__size}>
-                                            <h5>Size:</h5>
-                                            <div className={style.product__size_list}>
-                                                {
-                                                    sizes.map((item, index) => {
-                                                        return (
-                                                            <button key={index} className={style.product__size_item}
-                                                                onClick={() => handleAddSize(item)}
-                                                            >{item}</button>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className={style.product__btn}>
-                                            <div class="btn"
-                                                onClick={handleAddOrder}
-                                            >ADD TO BAG</div>
-                                            <div className={"btn" + " " + style.btn__fav}
-                                                onClick={() => handleAddFavor(product.id_product)}
-                                            >
-                                                FAVOTITES
-                                                <FontAwesomeIcon icon={faHeart} style={{ marginLeft: '8px' }} />
-                                            </div>
-                                        </div>
-                                        <div className={style.product__view}>
-                                            <div className={style.product__view_info}>
-                                                <div className={style.product__view_info_title}>
-                                                    <span>View detail information</span>
-                                                    {arrowDown && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
-                                                        onClick={handleShow} />}
-                                                    {arrowUp && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
-                                                        onClick={handleHide} />}
-                                                </div>
-                                                {
-                                                    showDetailInfo &&
-                                                    <div class={style.product__view_info_contrain}>
-                                                        <p style={{"height": "480px", "overflowY":"scroll"}}>{product.detail_info || <Skeleton />}</p>
-                                                    </div>
-                                                }
-                                            </div>
-                                            <div className={style.product__view_review}>
-                                                <div className={style.product__view_info_title}>
-                                                    <span>Review (5)</span>
-                                                    <div className={style.rating}>
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStarHalfAlt} style={{ fontSize: '12px' }} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            images.map((item, index) => {
+                                return (
+                                    <div className={style.product__img_item}>
+                                        <img src={item || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
                                     </div>
                                 )
-                                :
-                                (
-                                    <div className={style.product__info_detail}>
-                                        <h3>{product.product_name || <Skeleton />}</h3>
-                                        <span>{product.classify || <Skeleton />}</span>
-                                        <h4>{product.product_price || <Skeleton />}</h4>
-                                        <p>{product.description || <Skeleton />}</p>
-                                        <div className={style.product__color}>
-                                            <h5>Colour Shown:</h5>
-                                            <span>{product.color || <Skeleton />}</span>
-                                        </div>
-                                        <div className={style.product__syle}>
-                                            <h5>Style:</h5>
-                                            <span>{product.style || <Skeleton />}</span>
-                                        </div>
-                                        <div className={style.product__btn}>
-                                            <div className="btn">Out of stock</div>
-                                        </div>
-                                        <div className={style.product__view}>
-                                            <div className={style.product__view_info}>
-                                                <div className={style.product__view_info_title}>
-                                                    <span>View detail information</span>
-                                                    {arrowDown && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
-                                                        onClick={handleShow} />}
-                                                    {arrowUp && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
-                                                        onClick={handleHide} />}
-                                                </div>
-                                                {
-                                                    showDetailInfo &&
-                                                    <div class={style.product__view_info_contrain}>
-                                                        <p>{product.detail_info || <Skeleton />}</p>
-                                                    </div>
-                                                }
-                                            </div>
-                                            <div className={style.product__view_review}>
-                                                <div className={style.product__view_info_title}>
-                                                    <span>Review (5)</span>
-                                                    <div className={style.rating}>
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
-                                                        <FontAwesomeIcon icon={faStarHalfAlt} style={{ fontSize: '12px' }} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
+                            })
                         }
-
                     </div>
-                    <div className={style.comment}>
-                        <h2 className={style.comment__heading}>Comments</h2>
-                        <div className={style.comment__context}>
-                            <input type="text" placeholder="Enter comment" value={comment} onChange={e => setComment(e.target.value)} />
-                            <button type="Submit" onClick={handleCreateComment}>Post</button>
-                        </div>
-                        <div style={{ "marginTop": "16px" }}>
-                            {
-                                comments.map((item, index) => {
-                                    return (
-                                        <div className={style.comment__item} key={index}>
-                                            <h3 className={style.comment__item_username}>{item.user_name}</h3>
-                                            <h4 className={style.comment__item_time}>{item.time}</h4>
-                                            <p className={style.comment__item_content}>{item.comment}</p>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                    </div>
-                    <div className="products">
-                        <div className="products__wrapper">
-                            <div className="products__category">
-                                <h2>Recommendation for you</h2>
-                                <div className="products__list">
-                                    {
-                                        topProducts.map((product, index) => {
-                                            if (index < 10) {
-                                                return (
-                                                    <div key={index} className="products__item">
-                                                        <div className="products__img">
-                                                            <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                                        </div>
-                                                        <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                            <h3>{product.product_name || <Skeleton />}</h3>
-                                                        </Link>
-                                                        <span>{product.product_price || <Skeleton />}₫</span>
-                                                    </div>
-                                                )
+                    <div></div>
+                    {
+                        state === 'con hang' ?
+                            (
+                                <div className={style.product__info_detail}>
+                                    <h3>{product.product_name}</h3>
+                                    <span>{product.classify}</span>
+                                    <h4>${product.product_price}</h4>
+                                    <p>{product.description}</p>
+                                    <div className={style.product__color}>
+                                        <h5>Colour Shown:</h5>
+                                        <span>{product.color}</span>
+                                    </div>
+                                    <div className={style.product__syle}>
+                                        <h5>Style:</h5>
+                                        <span>{product.style}</span>
+                                    </div>
+                                    <div className={style.product__size}>
+                                        <h5>Size:</h5>
+                                        <div className={style.product__size_list}>
+                                            {
+                                                sizes.map((item, index) => {
+                                                    return (
+                                                        <>
+                                                            <input type='radio' key={index} className={style.product__size_item}
+                                                                onClick={() => handleAddSize(item)}
+                                                            />
+                                                            <label htmlFor="">{item}</label>
+                                                        </>
+                                                    )
+                                                })
                                             }
-                                        })
-                                    }
-
+                                        </div>
+                                    </div>
+                                    <div className={style.product__btn}>
+                                        <div class="btn"
+                                            onClick={handleAddOrder}
+                                        >ADD TO BAG</div>
+                                        <div className={"btn" + " " + style.btn__fav}
+                                            onClick={() => handleAddFavor(product.id_product)}
+                                        >
+                                            FAVOTITES
+                                            <FontAwesomeIcon icon={faHeart} style={{ marginLeft: '8px' }} />
+                                        </div>
+                                    </div>
+                                    <div className={style.product__view}>
+                                        <div className={style.product__view_info}>
+                                            <div className={style.product__view_info_title}>
+                                                <span>View detail information</span>
+                                                {arrowDown && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
+                                                    onClick={handleShow} />}
+                                                {arrowUp && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
+                                                    onClick={handleHide} />}
+                                            </div>
+                                            {
+                                                showDetailInfo &&
+                                                <div class={style.product__view_info_contrain}>
+                                                    <p>{product.detail_info || <Skeleton />}</p>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div className={style.product__view_review}>
+                                            <div className={style.product__view_info_title}>
+                                                <span>Review (5)</span>
+                                                <div className={style.rating}>
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStarHalfAlt} style={{ fontSize: '12px' }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                            )
+                            :
+                            (
+                                <div className={style.product__info_detail}>
+                                    <h3>{product.product_name || <Skeleton />}</h3>
+                                    <span>{product.classify || <Skeleton />}</span>
+                                    <h4>{product.product_price || <Skeleton />}</h4>
+                                    <p>{product.description || <Skeleton />}</p>
+                                    <div className={style.product__color}>
+                                        <h5>Colour Shown:</h5>
+                                        <span>{product.color || <Skeleton />}</span>
+                                    </div>
+                                    <div className={style.product__syle}>
+                                        <h5>Style:</h5>
+                                        <span>{product.style || <Skeleton />}</span>
+                                    </div>
+                                    <div className={style.product__btn}>
+                                        <div className="btn">Out of stock</div>
+                                    </div>
+                                    <div className={style.product__view}>
+                                        <div className={style.product__view_info}>
+                                            <div className={style.product__view_info_title}>
+                                                <span>View detail information</span>
+                                                {arrowDown && <FontAwesomeIcon icon={faAngleDown} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
+                                                    onClick={handleShow} />}
+                                                {arrowUp && <FontAwesomeIcon icon={faAngleUp} style={{ fontSize: '12px', marginLeft: '4px', cursor: 'pointer' }}
+                                                    onClick={handleHide} />}
+                                            </div>
+                                            {
+                                                showDetailInfo &&
+                                                <div class={style.product__view_info_contrain}>
+                                                    <p>{product.detail_info || <Skeleton />}</p>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div className={style.product__view_review}>
+                                            <div className={style.product__view_info_title}>
+                                                <span>Review (5)</span>
+                                                <div className={style.rating}>
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStar} style={{ fontSize: '12px' }} />
+                                                    <FontAwesomeIcon icon={faStarHalfAlt} style={{ fontSize: '12px' }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                    }
+
+                </div>
+                <div className={style.comment}>
+                    <h2 className={style.comment__heading}>Comments</h2>
+                    <div className={style.comment__context}>
+                        <input type="text" placeholder="Enter comment" value={comment} onChange={e => setComment(e.target.value)} />
+                        <button type="Submit" onClick={handleCreateComment}>Post</button>
+                    </div>
+                    <div style={{ "marginTop": "16px" }}>
+                        {
+                            comments.map((item, index) => {
+                                return (
+                                    <div className={style.comment__item} key={index}>
+                                        <h3 className={style.comment__item_username}>{item.user_name}</h3>
+                                        <h4 className={style.comment__item_time}>{item.time}</h4>
+                                        <p className={style.comment__item_content}>{item.comment}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+                <div className="products">
+                    <div className="products__wrapper">
+                        <div className="products__category">
+                            <h2>Recommendation for you</h2>
+                            <div className="products__list">
+                                {
+                                    topProducts.map((product, index) => {
+                                        if (index < 10) {
+                                            return (
+                                                <ProductItem props={{ product, index }} />
+                                            )
+                                        }
+                                    })
+                                }
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </SkeletonTheme>
+            {
+                loading &&
+                (
+                    <Loading />
+                )
+            }
+        </div>
+
     )
 }
 

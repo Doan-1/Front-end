@@ -12,9 +12,16 @@ import man_img from '../assets/man.jpg'
 import { faArrowRightLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import ProductItem from "../components/ConstComponets/ProductItem";
+
+import Slideshow from "../components/ConstComponets/SlideShow";
+import Loading from "../components/ConstComponets/Loading";
+
 const Home = () => {
     // var id = localStorage.getItem('userid');
     const api = new API();
+    const [loading, setLoading] = useState(true)
+    const number = 10;
     const [products, setProducts] = useState([])
     const [topProducts, setTopProducts] = useState([]);
     useEffect(() => {
@@ -23,43 +30,15 @@ const Home = () => {
             setProducts(data.data)
             // console.log(data.data[18].discount_percent)
         })
-        // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
-    }, [window.location.href])
-    useEffect(() => {
         api.getTopProduct().then(res => {
             setTopProducts(res.data);
         })
+        // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
     }, [window.location.href])
 
-    let slideIndex = 1;
-
-    const plusSlides = (n) => {
-        showSlides(slideIndex += n);
-    }
-
-    const currentSlide = (n) => {
-        showSlides(slideIndex = n);
-    }
-
-    const showSlides = (n) => {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        console.log(slides);
-        let dots = document.getElementsByClassName("dot");
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-    }
     useEffect(() => {
-        // showSlides(1);
-    }, [window.location.href])
+        setLoading(false)
+    },[products])
     return (
         <div>
             <div className={style.main}>
@@ -81,37 +60,15 @@ const Home = () => {
                     </div>
                 </div>
                 <div className={style.slideshow__container}>
-
-                    <div className={style.mySlides + " " + style.fade}>
-                        <img src={slide_img} alt="" style={{ width: "100%" }} />
-                    </div>
-
-                    <div className={style.mySlides + " " + style.fade}>
-                        <img src={slide_img} alt="" style={{ width: "100%" }} />
-                    </div>
-
-                    <div className={style.mySlides + " " + style.fade}>
-                        <img src={slide_img} alt="" style={{ width: "100%" }} />
-                    </div>
-
-                    {/* <a className="prev" href="" onClick={() => plusSlides(-1)}>❮</a>
-                    <a className="next" href="" onClick={() => plusSlides(1)}>❯</a> */}
-
+                    <Slideshow />
                 </div>
-                <br />
-
-                <div style={{ textAlign: "center" }}>
-                    <span className={style.dot} onClick={() => currentSlide(1)}></span>
-                    <span className={style.dot} onClick={() => currentSlide(2)}></span>
-                    <span className={style.dot} onClick={() => currentSlide(3)}></span>
-                </div>
-                <div className={style.category}>
+                {/* <div className={style.category}>
                     <div className={style.category__list}>
                         <div className={style.category__item}>
                             <img src={women_img} alt="" />
                             <div className={style.overlayer}>
                                 <h3>WOMEN</h3>
-                                <Link to="/product/category/Women" style={{"textDecoration": "none", "color": "#fff"}}>
+                                <Link to="/product/category/Women" style={{ "textDecoration": "none", "color": "#fff" }}>
                                     <div className={style.shop}>
                                         <span>Shop now</span>
                                         <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', position: 'relative', top: '1px' }} />
@@ -124,7 +81,7 @@ const Home = () => {
                             <img src={man_img} alt="" />
                             <div className={style.overlayer}>
                                 <h3>MAN</h3>
-                                <Link to="/product/category/Men" style={{"textDecoration": "none", "color": "#fff"}}>
+                                <Link to="/product/category/Men" style={{ "textDecoration": "none", "color": "#fff" }}>
                                     <div className={style.shop}>
                                         <span>Shop now</span>
                                         <FontAwesomeIcon icon={faArrowRightLong} style={{ fontSize: '16px', marginLeft: '8px', top: '-4px' }} />
@@ -133,7 +90,7 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="products" id="products">
                     <div className="products__wrapper">
                         <div className="products__category">
@@ -143,14 +100,8 @@ const Home = () => {
                                     products.map((product, index) => {
                                         if (product.categories === 'New-Arrivals') {
                                             return (
-                                                <div key={index} className="products__item">
-                                                    <div className="products__img">
-                                                        <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                                    </div>
-                                                    <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                        <h3>{product.product_name || "ProductName"}</h3>
-                                                    </Link>
-                                                    <span>${product.product_price || "50$"}</span>
+                                                <div className='basis-1/4'>
+                                                    <ProductItem props={{ product, index }} />
                                                 </div>
                                             )
                                         }
@@ -163,16 +114,10 @@ const Home = () => {
                             <div className="products__list">
                                 {
                                     topProducts.map((product, index) => {
-                                        if (index < 10) {
+                                        if (index < number) {
                                             return (
-                                                <div key={index} className="products__item">
-                                                    <div className="products__img">
-                                                        <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                                    </div>
-                                                    <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                        <h3>{product.product_name || "ProductName"}</h3>
-                                                    </Link>
-                                                    <span>${product.product_price || "50$"}</span>
+                                                <div className='basis-1/4'>
+                                                    <ProductItem props={{ product, index }} />
                                                 </div>
                                             )
                                         }
@@ -187,21 +132,22 @@ const Home = () => {
                                     products.map((product, index) => {
                                         if (product.categories === `Sales`) {
                                             return (
-                                                <div key={index} className="products__item">
-                                                    <div className="products__img">
-                                                        <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
-                                                    </div>
-                                                    <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
-                                                        <h3>{product.product_name || "ProductName"}</h3>
-                                                    </Link>
-                                                    <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
-                                                        <div>
-                                                            <span>${parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}</span>
-                                                            <span style={{ "fontSize": "14px", "marginLeft": "16px", "textDecorationLine": "line-through" }}>{parseInt(product.product_price) || "500000"}₫</span>
-                                                        </div>
-                                                        <span style={{ "fontSize": "14px", "marginRight": "16px", "color": "#ec4242" }}>(-{product.discount_percent}%)</span>
-                                                    </div>
-                                                </div>
+                                                <ProductItem props={{ product, index }} />
+                                                // <div key={index} className="products__item">
+                                                //     <div className="products__img">
+                                                //         <img src={product.thumbnail || "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png"} alt="" />
+                                                //     </div>
+                                                //     <Link to={"/productinfo/" + product.slug} style={{ "textDecoration": "none" }}>
+                                                //         <h3>{product.product_name || "ProductName"}</h3>
+                                                //     </Link>
+                                                //     <div style={{ "display": "flex", "flexDirection": "row", "justifyContent": "space-between" }}>
+                                                //         <div>
+                                                //             <span>${parseInt(product.product_price) * (100 - product.discount_percent) / 100 || "500000"}</span>
+                                                //             <span style={{ "fontSize": "14px", "marginLeft": "16px", "textDecorationLine": "line-through" }}>{parseInt(product.product_price) || "500000"}₫</span>
+                                                //         </div>
+                                                //         <span style={{ "fontSize": "14px", "marginRight": "16px", "color": "#ec4242" }}>(-{product.discount_percent}%)</span>
+                                                //     </div>
+                                                // </div>
                                             )
                                         }
                                     })
@@ -211,6 +157,12 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            {
+                loading &&
+                (
+                    <Loading />
+                )
+            }
         </div>
     )
 }

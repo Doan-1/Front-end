@@ -6,14 +6,14 @@
     flex-direction: row;
     /* align-items: center; */
     /* grid-template-columns: 10% 45% 45%; */
-    color: #4682B4;
+    color: var(--primary-color);
     background-color: var(--white-color);
     box-shadow: 0 4px 10px rgba(70, 130, 180, 0.07);
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
-    z-index: 1;
+    z-index: 9999999;
 }
 .logo{
     /* width: 100%;
@@ -51,7 +51,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #4682B4;     
+    color: var(--primary-color);     
 }
 .feature{
     flex: 5;
@@ -59,7 +59,7 @@
     grid-template-columns: 50% 50%;
     padding: 0 24px;
 }
-.search{
+/* .search{
     display: grid;
     grid-template-columns: 10% 90%;
     align-items: center;
@@ -67,24 +67,24 @@
     margin: 10px 24px;
     background-color: var(--primary---color-rgba);
     border-radius: 30px;
-}
-.search__icon{
+} */
+/* .search__icon{
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
     margin-left: 16px;
     cursor: pointer;
-}
-.search__input input{
+} */
+/* .search__input input{
     width: 100%;
     border: none;
     outline: none;
     padding: 8px;
-    background-color:rgba(70, 130, 180, 0) ;
+    background-color:#4682b400 ;
     font-size: 12px;
     color: #666666;
-}
+} */
 .account{
     padding: 0 24px;
     font-family: 'Montserrat', sans-serif;
@@ -109,6 +109,9 @@
     justify-content: center;
     position: relative;
     cursor: pointer;
+}
+.account__func_item a{
+    color: var(--primary-color);
 }
 .account__func_item:hover .account__func_item_info,
 .account__func_item:hover .cart{
@@ -234,6 +237,10 @@
     background-color: var(--white-color);
     z-index: 1;
 }
+.account__func_item_info a{
+    color: var(--primary-color);
+    text-decoration: none;
+}
 .account__func_item_info li{
     width: 100%;
     display: flex;
@@ -242,11 +249,12 @@
     min-width: 220px;
     padding: 8px;
 }
-.account__func_item_info li:first-child a{
+.account__func_item_info li:first-child span{
     margin-left: 0;
 }
 .account__func_item_info li span{
     margin-left: 16px;
+    margin-right: 16px;
 }
 .account__func_item_info li:hover span{
     color: var(--text-color);
