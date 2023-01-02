@@ -43,16 +43,10 @@
 }
 .order__table {
     margin-top: 48px;
-    border-radius: 5px;
 }
 table, th, td{
     border: 1px solid var(--primary-color);
     text-align: center;
-}
-table{
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 5px;
 }
 th, td{
     padding: 16px;

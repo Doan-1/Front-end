@@ -48,10 +48,10 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'GoldmanRegular';
     font-size: 14px;
-    font-weight: 600;
-    color: var(--primary-color);     
+    font-weight: 500;
+    color: var(--text-color);     
 }
 .feature{
     flex: 5;
@@ -111,7 +111,7 @@
     cursor: pointer;
 }
 .account__func_item a{
-    color: var(--primary-color);
+    color: var(--text-color);
 }
 .account__func_item:hover .account__func_item_info,
 .account__func_item:hover .cart{
@@ -238,7 +238,7 @@
     z-index: 1;
 }
 .account__func_item_info a{
-    color: var(--primary-color);
+    color: var(--text-color);
     text-decoration: none;
 }
 .account__func_item_info li{
@@ -257,7 +257,7 @@
     margin-right: 16px;
 }
 .account__func_item_info li:hover span{
-    color: var(--text-color);
+    color: var(--primary-color);
 }
 .account__func_item_info li:nth-child(1){
     border-bottom: 1px solid var(--primary-color);

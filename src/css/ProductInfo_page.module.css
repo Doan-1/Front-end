@@ -26,30 +26,7 @@
     font-family: 'Poppins', 'sans-serif';
     color: var(--primary-color);
 }
-.product__info_detail h3{
-    font-size: 28px;
-    line-height: 28px;
-    font-weight: 600;
-    margin: 8px 0;
-}
-.product__info_detail span{
-    font-size: 14px;
-    font-weight: 400;
-    margin: 8px 0;
-    color: var(--text-color);
-}
-.product__info_detail h4{
-    font-size: 24px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-.product__info_detail p{
-    font-size: 14px;
-    line-height: 32px;
-    font-weight: 300;
-    margin: 16px 0;
-    color: var(--text-color);
-}
+
 .product__syle,
 .product__color,
 .product__size{
@@ -99,9 +76,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-}
-.product__view_info{
-
+    padding-bottom: 16px;
 }
 .product__view_info_title{
     display: flex;
@@ -144,7 +119,7 @@
     font-size: 20px;
     font-weight: 600;
     line-height: 28px;
-    margin: 0 0 24px 0;
+    margin: 0 0 8px 0;
     color: var(--primary-color);
 }
 .comment__context{
@@ -164,7 +139,7 @@
 }
 .comment__context button{
     min-width: 100px;
-    padding: 8px 0;
+    padding: 4px 0;
     border: none;
     color: #fff;
     background-color: var(--primary-color);
@@ -185,11 +160,12 @@
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: 600;
-    margin: 0;
+    margin: 4px 0;
 }
 .comment__item_content{
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 500;
     color: var(--text-color);
+    margin: 12px 0;
 }

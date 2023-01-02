@@ -22,7 +22,7 @@ html{
   --primary---color-rgba3: rgba(0, 164, 180, 0.5);
   --primary---color-rgba4: rgba(70, 130, 180, 0.6);
   --white-color-rgba: rgba(255, 255, 255, 0.85);
-  --text-color: #666666;
+  --text-color: #292929;
   --sub-text-color: #acacac;
 }
 
@@ -128,3 +128,45 @@ html{
   line-height: 18px;
   color: var(--text-color);
 } */
+
+.font-face-gm-bold {
+  font-family: "GoldmanBold";
+}
+.font-face-gm-reg {
+  font-family: "GoldmanRegular";
+}
+.font-face-tp-bold {
+  font-family: 'TextaProBold';
+}
+.font-face-tp-reg {
+  font-family: 'TextaProRegular';
+}
+
+img {
+  display: initial;
+} 
+.ant-image-preview-content{
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+}
+
+.ant-table-wrapper table {
+  border-collapse: collapse;
+}
+.ant-table-wrapper .ant-table-container table>thead>tr:first-child th:first-child,
+.ant-table-wrapper .ant-table-container table>thead>tr:first-child th:last-child{
+  border-radius: 0;
+}
+.ant-table-wrapper .ant-table-thead >tr>th{
+  color: var(--white-color);
+  background-color: var(--primary-color);
+}
+.ant-table-wrapper .ant-table-tbody .ant-table-row .ant-table-row-level-0{
+  border: 1px solod var(--primary-color);
+}
+.ant-table-wrapper .ant-table-tbody >tr:last-child>td{
+  border-bottom: 1px solod var(--primary-color);
+}

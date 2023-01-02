@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ItemHeaderBag from "../ItemHeaderBag";
 import { useNavigate } from "react-router-dom";
 
-import logo from "../../../assets/logo.jpg";
 import emptyCart from "../../../assets/emptycart.png";
 import { data } from "autoprefixer";
 
@@ -42,7 +41,6 @@ const Header = () => {
       });
       api.getOrderbyIDuser(id).then((data) => {
         setProducts(data.data[0].orders);
-        // console.log(data.data[0].orders)
       });
       api.getProduct().then((res) => {
         setProducts(res.data);
@@ -51,7 +49,6 @@ const Header = () => {
   }, [window.location.href]);
 
   // const handleDelete = (id, stt) => {
-  //     // console.log(id)
   //     let newArr = products.filter((item, i) => i !== stt)
   //     setProducts(newArr)
   //     api.deleteOneInOrder("1", id)
@@ -68,11 +65,11 @@ const Header = () => {
   };
   return (
     <div className={style.header}>
-      <div className={style.logo}>
+      {/* <div className={style.logo}>
         <Link to="/">
           <img src={logo} alt="" className={style.logo__img} />
         </Link>
-      </div>
+      </div> */}
       <nav className={style.menu}>
         <ul className={style.menu__list}>
           <li className={style.menu__item}>
@@ -130,7 +127,7 @@ const Header = () => {
                       >
                         <Link
                           to={"/productinfo/" + product.slug}
-                          className='w-full'
+                          className="w-full"
                           onClick={() => {
                             setSearch(false);
                             setSearchValue("");
@@ -160,7 +157,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className={style.account__func_item}>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon className="text-[#292929]" icon={faUser} />
                 <ul className={style.account__func_item_info}>
                   <li>
                     <div>
