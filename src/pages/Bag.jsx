@@ -10,7 +10,7 @@ import ItemBag from "../components/ConstComponets/ItemBag";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Loading from "../components/ConstComponets/Loading";
 import ProductItem from "../components/ConstComponets/ProductItem";
-import { Form, Input, Radio, Row, Col, Card, message } from "antd";
+import {Input, Radio, Row, Col, Card, message } from "antd";
 
 const api = new API();
 const Bag = () => {
@@ -85,16 +85,16 @@ const Bag = () => {
   };
   const handleAddNewCart = () => {
     // api.createNewCart(id, total, address, phone);
-    console.log({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      address: address,
-      shipping: shipping,
-      total: total,
-      bags: bags,
-    });
+    // console.log({
+    //   firstName: firstName,
+    //   lastName: lastName,
+    //   email: email,
+    //   phone: phone,
+    //   address: address,
+    //   shipping: shipping,
+    //   total: total,
+    //   bags: bags,
+    // });
     if (firstName === "" || lastName === "" || phone === "" || address === "") {
       error();
     }
