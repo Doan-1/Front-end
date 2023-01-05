@@ -78,7 +78,18 @@ const Bag = () => {
     });
   };
   const handleAddNewCart = () => {
-    // api.createNewCart(id, total, address, phone);
+      api.createNewCart(id, firstName, lastName, email,shipping,total,address,phone);
+      setBags([])
+      setAddress("")
+      setDelivery(false)
+      setEmail("")
+      setFirstName("")
+      setLastName("")
+      setPhone("")
+      setShipping("standard")
+      setTotal(0)
+      setNumber(0)
+
     // console.log({
     //   firstName: firstName,
     //   lastName: lastName,

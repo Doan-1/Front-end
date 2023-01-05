@@ -125,12 +125,16 @@ export default class API {
     });
     return a;
   }
-  async createNewCart(iduser, tot, add, phon) {
+  async createNewCart(idUser, firstName, lastName, email,shipping,total,address,phone) {
     let a = await axios.post(`http://localhost:4001/cart/create`, {
-      id_user: iduser,
-      total: tot,
-      address: add,
-      phone: phon,
+      id_user: idUser,
+      first_name:firstName,
+      last_name:lastName,
+      email: email,
+      shipping: shipping,
+      total: total, 
+      address: address, 
+      phone: phone, 
     });
     return a;
   }
