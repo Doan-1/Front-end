@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 import emptyCart from "../../../assets/emptycart.png";
 import { data } from "autoprefixer";
+import logo from "../../../assets/logo.jpg";
 
 const api = new API();
 const Header = () => {
@@ -65,11 +66,11 @@ const Header = () => {
   };
   return (
     <div className={style.header}>
-      {/* <div className={style.logo}>
+      <div className={style.logo}>
         <Link to="/">
           <img src={logo} alt="" className={style.logo__img} />
         </Link>
-      </div> */}
+      </div>
       <nav className={style.menu}>
         <ul className={style.menu__list}>
           <li className={style.menu__item}>

@@ -27,9 +27,8 @@ const Home = () => {
     api.getProduct().then((data) => {
       setProducts(data.data);
     });
-    api.getTopProduct("1").then((res) => {
-      console.log(res.data);
-      // setTopProducts(res.data);
+    api.getTopProduct().then((res) => {
+      setTopProducts(res.data);
     });
     // await api.createProduct('6', 'Nike Jordan 6', '2.000.000', 'abc', 'Nike-Jordan-6', 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/0a1c535a-5d25-46cb-b439-9c2451c9e8e0/air-jordan-1-low-g-golf-shoes-94QHHm.png', 'shoes');
   }, [window.location.href]);

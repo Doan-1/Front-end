@@ -7,7 +7,13 @@ export default class API {
     return a.data;
   }
   async getTopProduct(user_id) {
-    let a = await axios.get(`http://localhost:8080/user=` + user_id);
+    let a = await axios.get(`http://localhost:4001/product/desc`);
+    return a.data;
+  }
+  async getRecommendProduct(user_id) {
+    let a = await axios.get(
+      `http://localhost:4001/product/getCF?id_user=` + user_id
+    );
     return a.data;
   }
   async createProduct(

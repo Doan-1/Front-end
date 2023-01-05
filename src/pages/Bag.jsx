@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 import API from "../context/Api.context";
 import style from "../css/Bag_page.module.css";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 import ItemBag from "../components/ConstComponets/ItemBag";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import Loading from "../components/ConstComponets/Loading";
 import ProductItem from "../components/ConstComponets/ProductItem";
-import {Input, Radio, Row, Col, Card, message } from "antd";
+import { Input, Radio, Row, Col, Card, message } from "antd";
 
 const api = new API();
 const Bag = () => {
