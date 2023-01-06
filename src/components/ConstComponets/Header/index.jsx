@@ -63,6 +63,7 @@ const Header = () => {
     localStorage.setItem("userid", "");
     navigate("/");
     setUser(false);
+    window.location.reload();
   };
   return (
     <div className={style.header}>
@@ -158,7 +159,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className={style.account__func_item}>
-                <FontAwesomeIcon className="text-[#292929]" icon={faUser} />
+                <FontAwesomeIcon className="text-[#00A4B4]" icon={faUser} />
                 <ul className={style.account__func_item_info}>
                   <li>
                     <div>

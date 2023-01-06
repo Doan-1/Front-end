@@ -111,7 +111,7 @@
     cursor: pointer;
 }
 .account__func_item a{
-    color: var(--text-color);
+    color: var(--primary-color);
 }
 .account__func_item:hover .account__func_item_info,
 .account__func_item:hover .cart{

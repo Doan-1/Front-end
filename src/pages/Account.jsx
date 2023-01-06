@@ -1,26 +1,28 @@
-import { prettyDOM } from "@testing-library/react";
 import { useState } from "react";
 import style from "../css/Account_page.module.css";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import facebook_logo from "../assets/facebook.png";
 import google_logo from "../assets/google.png";
 
-import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import API from "../context/Api.context";
 import { useEffect } from "react";
+import { Input, Row, Col } from "antd";
 
 const Account = () => {
   let navigate = useNavigate();
   const api = new API();
   const [show, setShow] = useState(true);
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
-  const [eror, seteror] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   const [user, setUser] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
 
   const hanldeSignIn = () => {
     setShow(!show);
@@ -30,16 +32,16 @@ const Account = () => {
   };
 
   const handleLoggin = () => {
-    if (username != "" && password != "") {
-      api.UserLogin(username, password).then((data) => {
+    if (userName != "" && password != "") {
+      api.UserLogin(userName, password).then((data) => {
         if (data.data.data === "Sai mk") {
           window.alert("Mật khẩu không đúng");
-          setpassword("");
+          setPassword("");
         }
         if (data.data.data === "Sai username") {
           window.alert("Tài khoản không đúng");
-          setusername("");
-          setpassword("");
+          setUserName("");
+          setPassword("");
         } else {
           localStorage.setItem("userid", data.data.data);
           api.getUserbyIDuser(data.data.data).then((res) => {
@@ -52,13 +54,28 @@ const Account = () => {
     }
   };
   const handleSIGNUP = () => {
-    if (username != "" && password != "") {
-      api.UserRegister(username, password).then((data) => {
+    if (
+      userName != "" &&
+      password != "" &&
+      firstName != "" &&
+      lastName != "" &&
+      phone != "" &&
+      address != ""
+    ) {
+      api.UserRegister(userName, password).then((data) => {
         if (data.data.data === "username da ton tai") {
           window.alert("Tên tài khoản đã tồn tại");
-          setusername("");
-          setpassword("");
+          setUserName("");
+          setPassword("");
         } else {
+          alert("successful!");
+          // setUserName("");
+          // setPassword("");
+          // setFirstName("");
+          // setLastName("");
+          // setPhone("");
+          // setAddress("");
+          // setEmail("");
           setShow(!show);
         }
       });
@@ -79,38 +96,32 @@ const Account = () => {
             <div className={style.wrapper}>
               <h2>Welcome back, my friend!</h2>
               <span color="red">{}</span>
-              <div className={style.input}>
-                <div className={style.input_item}>
-                  <input
+              <Row className="mb-6">
+                <Col className="w-full">
+                  <span>User Name</span>
+                  <Input
+                    className="flex-1 mr-2 mt-4"
+                    value={userName}
                     type="text"
-                    value={username}
-                    onChange={(e) => setusername(e.target.value)}
-                    placeholder="User name"
-                    required
-                  />
-                </div>
-                <div className={style.input_item}>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setpassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                  />
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      right: "16px",
-                      transform: "translateY(calc(-50%))",
-                      fontSize: "16px",
-                      color: "var(--text-color)",
-                      cursor: "pointer",
+                    onChange={(e) => {
+                      setUserName(e.target.value);
                     }}
                   />
-                </div>
-              </div>
+                </Col>
+              </Row>
+              <Row className="mb-8">
+                <Col className="w-full">
+                  <span>Password</span>
+                  <Input
+                    className="flex-1 mr-2 mt-4"
+                    value={password}
+                    type="text"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                </Col>
+              </Row>
               <p className={style.forgot_password}>Forgotten your password?</p>
               <div className={style.text}>
                 <p>
@@ -148,18 +159,96 @@ const Account = () => {
             <div className={style.wrapper}>
               <h2>Welcome to Shoes Store!</h2>
               <div className={style.input}>
-                <div className={style.input_addition}>
+                <Row className="flex items-center justify-between mb-6">
+                  <Col>
+                    <span>First Name</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={firstName}
+                      type="text"
+                      onChange={(e) => {
+                        setFirstName(e.target.value);
+                      }}
+                    />
+                  </Col>
+                  <Col>
+                    <span>Last Name</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={lastName}
+                      type="text"
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row className="flex items-center justify-between mb-6">
+                  <Col>
+                    <span>Email</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={email}
+                      type="text"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
+                    />
+                  </Col>
+                  <Col>
+                    <span>Phone Number</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={phone}
+                      type="number"
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-6">
+                  <span>Address</span>
+                  <Input.TextArea
+                    className="mt-4"
+                    rows={2}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Row>
+                <Row className="mb-6">
+                  <Col className="w-full">
+                    <span>User Name</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={userName}
+                      type="text"
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row className="mb-8">
+                  <Col className="w-full">
+                    <span>Password</span>
+                    <Input
+                      className="flex-1 mr-2 mt-4"
+                      value={password}
+                      type="text"
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                  </Col>
+                </Row>
+                {/* <div className={style.input_addition}>
                   <div className={style.input_item}>
                     <input type="text" placeholder="username" />
                   </div>
                 </div>
-                {/* <div className={style.input_item}>
-                                            <input type="text" placeholder="Email" required />
-
-                                        </div> */}
                 <div className={style.input_item}>
                   <input type="password" placeholder="password" />
-                </div>
+                </div> */}
               </div>
               <div className="btn" onClick={handleSIGNUP}>
                 <span>SIGN UP</span>

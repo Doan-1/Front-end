@@ -40,7 +40,7 @@
     font-size: 32px;
     color: var(--primary-color);
 }
-.wrapper .input .input_item{
+/* .wrapper .input .input_item{
     border: 2px solid var(--primary-color);
     border-radius: 10px;
     overflow: hidden;
@@ -77,9 +77,9 @@
 }
 .wrapper .input_item_icon_close.active{
     display: block;
-}
+} */
 .wrapper p{
-    font-size: 18px;
+    font-size: 14px;
     color: var(--text-color);
     text-align: center;
     font-weight: 400;
@@ -95,7 +95,7 @@
 }
 .wrapper a{
     color: var(--primary-color);
-    font-size: 19px;
+    font-size: 16px;
     font-weight: 500;
     cursor: pointer;
 }

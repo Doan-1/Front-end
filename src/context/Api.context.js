@@ -125,16 +125,25 @@ export default class API {
     });
     return a;
   }
-  async createNewCart(idUser, firstName, lastName, email,shipping,total,address,phone) {
+  async createNewCart(
+    idUser,
+    firstName,
+    lastName,
+    email,
+    shipping,
+    total,
+    address,
+    phone
+  ) {
     let a = await axios.post(`http://localhost:4001/cart/create`, {
       id_user: idUser,
-      first_name:firstName,
-      last_name:lastName,
+      first_name: firstName,
+      last_name: lastName,
       email: email,
       shipping: shipping,
-      total: total, 
-      address: address, 
-      phone: phone, 
+      total: total,
+      address: address,
+      phone: phone,
     });
     return a;
   }
@@ -171,7 +180,7 @@ export default class API {
     });
     return a;
   }
-  async UserRegister(name, pass) {
+  async UserRegister(name, pass, first_name, last_name, phone, address, email) {
     let a = await axios.post(`http://localhost:4001/user/resigter`, {
       username: name,
       password: pass,

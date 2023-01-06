@@ -10,17 +10,20 @@ const Profile = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUseEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [userFirstName, setUserFirstName] = useState("");
+  const [userLastName, setUserLastName] = useState("");
   const [userPhonenumber, setUserPhonenumber] = useState("");
   const [userAddress, setUserAddress] = useState("");
   useEffect(() => {
     if (id) {
       api.getUserbyIDuser(id).then((res) => {
-        // setUserInfo(res.data)
         setUserName(res.data.user_name);
         setUseEmail(res.data.user_email);
         setUserPassword(res.data.user_password);
         setUserPhonenumber(res.data.user_phone);
         setUserAddress(res.data.user_address);
+        setUserFirstName(res.data.first_name);
+        setUserLastName(res.data.last_name);
       });
     }
   }, [window.location.href]);
@@ -51,7 +54,7 @@ const Profile = () => {
               <span>First Name</span>
               <Input
                 className="flex-1 mr-2 mt-4"
-                value={userName}
+                value={userFirstName}
                 type="text"
                 onChange={(e) => {
                   setUserName(e.target.value);
@@ -62,7 +65,7 @@ const Profile = () => {
               <span>Last Name</span>
               <Input
                 className="flex-1 mr-2 mt-4"
-                value={userName}
+                value={userLastName}
                 type="text"
                 onChange={(e) => {
                   setUserName(e.target.value);

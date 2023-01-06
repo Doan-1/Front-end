@@ -21,15 +21,7 @@ const Bag = () => {
   const [shipping, setShipping] = useState("standard");
   const [phone, setPhone] = useState("");
   const [favorites, setFavorites] = useState([]);
-  const [topProducts, setTopProducts] = useState([]);
-
-  // useEffect(() => {
-
-  //     api.getOrderbyIDuser(id).then((data) => {
-  //         setBags(data.data[0].orders)
-  //     })
-
-  // }, [window.location.href])
+  const [recommendProducts, setRecommendProducts] = useState([]);
 
   useEffect(() => {
     api.getOrderbyIDuser(id).then((data) => {
@@ -52,17 +44,14 @@ const Bag = () => {
     api.getUserbyIDuser(id).then((res) => {
       setFavorites(res.data.favorite);
     });
-  }, [window.location.href]);
-
-  useEffect(() => {
-    api.getTopProduct().then((res) => {
-      setTopProducts(res.data);
+    api.getRecommendProduct(id).then((res) => {
+      setRecommendProducts(res.data);
     });
-  }, [window.location.href]);
+  }, [id]);
 
   useEffect(() => {
     setLoading(false);
-  }, [bags, favorites, topProducts]);
+  }, [bags, favorites, recommendProducts]);
 
   useEffect(() => {
     setNumber(0);
@@ -78,17 +67,26 @@ const Bag = () => {
     });
   };
   const handleAddNewCart = () => {
-      api.createNewCart(id, firstName, lastName, email,shipping,total,address,phone);
-      setBags([])
-      setAddress("")
-      setDelivery(false)
-      setEmail("")
-      setFirstName("")
-      setLastName("")
-      setPhone("")
-      setShipping("standard")
-      setTotal(0)
-      setNumber(0)
+    api.createNewCart(
+      id,
+      firstName,
+      lastName,
+      email,
+      shipping,
+      total,
+      address,
+      phone
+    );
+    setBags([]);
+    setAddress("");
+    setDelivery(false);
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setPhone("");
+    setShipping("standard");
+    setTotal(0);
+    setNumber(0);
 
     // console.log({
     //   firstName: firstName,
@@ -269,7 +267,7 @@ const Bag = () => {
           <div className="products__category">
             <h2>Recommendation for you</h2>
             <div className="products__list">
-              {topProducts.map((product, index) => {
+              {recommendProducts.map((product, index) => {
                 if (index < 10) {
                   return (
                     <div className="basis-1/4 first:pl-0">
