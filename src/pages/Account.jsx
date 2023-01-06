@@ -62,20 +62,20 @@ const Account = () => {
       phone != "" &&
       address != ""
     ) {
-      api.UserRegister(userName, password).then((data) => {
+      api.UserRegister(userName, password,firstName,lastName,phone,address,email).then((data) => {
         if (data.data.data === "username da ton tai") {
           window.alert("Tên tài khoản đã tồn tại");
           setUserName("");
           setPassword("");
         } else {
           alert("successful!");
-          // setUserName("");
-          // setPassword("");
-          // setFirstName("");
-          // setLastName("");
-          // setPhone("");
-          // setAddress("");
-          // setEmail("");
+          setUserName("");
+          setPassword("");
+          setFirstName("");
+          setLastName("");
+          setPhone("");
+          setAddress("");
+          setEmail("");
           setShow(!show);
         }
       });

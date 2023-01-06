@@ -184,6 +184,11 @@ export default class API {
     let a = await axios.post(`http://localhost:4001/user/resigter`, {
       username: name,
       password: pass,
+      first_name: first_name,
+      last_name: last_name,
+      user_phone: phone,
+      user_address: address,
+      user_email: email,
     });
     return a;
   }
