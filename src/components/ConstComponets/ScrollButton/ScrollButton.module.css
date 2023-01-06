@@ -1,7 +1,7 @@
 .button {
     position: fixed;
-    left: 95%;
-    bottom: 40px;
+    right: 28px;
+    bottom: 90px;
     width: 40px;
     height: 40px;
     display: flex;

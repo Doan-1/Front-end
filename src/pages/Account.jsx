@@ -62,25 +62,40 @@ const Account = () => {
       phone != "" &&
       address != ""
     ) {
-      api.UserRegister(userName, password,firstName,lastName,phone,address,email).then((data) => {
-        if (data.data.data === "username da ton tai") {
-          window.alert("Tên tài khoản đã tồn tại");
-          setUserName("");
-          setPassword("");
-        } else {
-          alert("successful!");
-          setUserName("");
-          setPassword("");
-          setFirstName("");
-          setLastName("");
-          setPhone("");
-          setAddress("");
-          setEmail("");
-          setShow(!show);
-        }
-      });
+      api
+        .UserRegister(
+          userName,
+          password,
+          firstName,
+          lastName,
+          phone,
+          address,
+          email
+        )
+        .then((data) => {
+          if (data.data.data === "username da ton tai") {
+            window.alert("Tên tài khoản đã tồn tại");
+            setUserName("");
+            setPassword("");
+            setFirstName("");
+            setLastName("");
+            setPhone("");
+            setAddress("");
+            setEmail("");
+          } else {
+            alert("successful!");
+            setUserName("");
+            setPassword("");
+            setFirstName("");
+            setLastName("");
+            setPhone("");
+            setAddress("");
+            setEmail("");
+            setShow(!show);
+          }
+        });
     } else {
-      window.alert("Tài khoản mật khẩu không được trống");
+      window.alert("Thông tin tài khoản không được trống");
     }
   };
   useEffect(() => {
@@ -112,7 +127,7 @@ const Account = () => {
               <Row className="mb-8">
                 <Col className="w-full">
                   <span>Password</span>
-                  <Input
+                  <Input.Password
                     className="flex-1 mr-2 mt-4"
                     value={password}
                     type="text"
@@ -140,7 +155,7 @@ const Account = () => {
                   </a>
                 </p>
               </div>
-              <div className={style.signup_method}>
+              {/* <div className={style.signup_method}>
                 <div className={style.signup_method_item}>
                   <img src={facebook_logo} />
                   <span>Sign up with Facebook</span>
@@ -149,7 +164,7 @@ const Account = () => {
                   <img src={google_logo} />
                   <span>Sign up with Google</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -231,7 +246,7 @@ const Account = () => {
                 <Row className="mb-8">
                   <Col className="w-full">
                     <span>Password</span>
-                    <Input
+                    <Input.Password
                       className="flex-1 mr-2 mt-4"
                       value={password}
                       type="text"
@@ -241,14 +256,6 @@ const Account = () => {
                     />
                   </Col>
                 </Row>
-                {/* <div className={style.input_addition}>
-                  <div className={style.input_item}>
-                    <input type="text" placeholder="username" />
-                  </div>
-                </div>
-                <div className={style.input_item}>
-                  <input type="password" placeholder="password" />
-                </div> */}
               </div>
               <div className="btn" onClick={handleSIGNUP}>
                 <span>SIGN UP</span>
@@ -260,16 +267,6 @@ const Account = () => {
                     Sign in
                   </a>
                 </p>
-              </div>
-              <div className={style.signup_method}>
-                <div className={style.signup_method_item}>
-                  <img src={facebook_logo} />
-                  <span>Sign up with Facebook</span>
-                </div>
-                <div className={style.signup_method_item}>
-                  <img src={google_logo} />
-                  <span>Sign up with Google</span>
-                </div>
               </div>
             </div>
           </div>

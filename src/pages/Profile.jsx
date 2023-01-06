@@ -17,6 +17,7 @@ const Profile = () => {
   useEffect(() => {
     if (id) {
       api.getUserbyIDuser(id).then((res) => {
+        console.log(res.data);
         setUserName(res.data.user_name);
         setUseEmail(res.data.user_email);
         setUserPassword(res.data.user_password);

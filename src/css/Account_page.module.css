@@ -1,5 +1,5 @@
 .account{
-    width: 100%;
+    min-width: 100%;
     height: 679px;
     font-family: 'Roboto', sans-serif;
     /* background-image: url('../assets/signin.jpg'); */
@@ -28,6 +28,7 @@
     display: none;
 }
 .wrapper{
+    min-width: 600px;
     display: flex;
     flex-direction: column;
     background-color: var(--white-color-rgba);

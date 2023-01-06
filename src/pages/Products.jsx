@@ -95,67 +95,6 @@ const Products = () => {
                 </li>
               </ul>
             </div>
-            <div className={style.products__category}>
-              <h3>Category</h3>
-              <ul className={style.products__category_list}>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Running"
-                  />
-                  <label for="selection__category">Running</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Football"
-                  />
-                  <label for="selection__category">Football</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Basketball"
-                  />
-                  <label for="selection__category">Basketball</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Gym and Training"
-                  />
-                  <label for="selection__category">Gym and Training</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input type="radio" name="selection__category" value="Yoga" />
-                  <label for="selection__category">Yoga</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Skateboarding"
-                  />
-                  <label for="selection__category">Skateboarding</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input
-                    type="radio"
-                    name="selection__category"
-                    value="Tennis"
-                  />
-                  <label for="selection__category">Tennis</label>
-                </li>
-                <li className={style.products__category_item}>
-                  <input type="radio" name="selection__category" value="Golf" />
-                  <label for="selection__category">Golf</label>
-                </li>
-              </ul>
-            </div>
           </div>
           <div className={style.products__right}>
             <div className="flex flex-wrap">

@@ -13,13 +13,13 @@ const Bag = () => {
   const [bags, setBags] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [number, setNumber] = useState(0);
   const [delivery, setDelivery] = useState(false);
   const [total, setTotal] = useState(0);
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
   const [shipping, setShipping] = useState("standard");
-  const [phone, setPhone] = useState("");
   const [favorites, setFavorites] = useState([]);
   const [recommendProducts, setRecommendProducts] = useState([]);
 
